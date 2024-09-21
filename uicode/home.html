@@ -48,7 +48,7 @@
 
     <!-- left navbar -->
     <div class="navbar">
-        <a href class="create-btn"><i class="fa fa-add"></i>Create</a>
+        <a href class="create-btn"><i class="fa fa-add"></i><p id="createText">Create</p></a>
         <div class="create-options">
             
         </div>
@@ -58,7 +58,7 @@
             <div class="status-option1 status-option"><input type="checkbox" name="" id=""> option 1</div>
             <div class="status-option2 status-option"><input type="checkbox" name="" id=""> option 2</div>
         </div>
-        <div class="line"></div>
+        <!-- <div class="line"></div> -->
         <div class="nav">
             <a href="" class="tasks">Task list</a>
             <a href="" class="profile">Profile</a>
@@ -68,20 +68,77 @@
 <!-- main -->
     <div class="main">
         <div class="scroll-view">
-            <div class="week">
+            <!-- <div class="week">
                 <div class="day-in-week">
                     <div class="day-name">MON</div>
                     <div class="day-date">23</div>
                 </div>
-            </div>
-            <div class="time-table">
+            </div> -->
+            <div class="timetable-container">
+                <!-- Hàng các ngày trong tuần -->
+                <div class="weekdays">
+                  <div class="time-label"></div> <!-- Để trống tạo khoảng cách cho cột thời gian -->
+                  <div class="day-label">Thứ 2, 18/09</div>
+                  <div class="day-label">Thứ 3, 19/09</div>
+                  <div class="day-label">Thứ 4, 20/09</div>
+                  <div class="day-label">Thứ 5, 21/09</div>
+                  <div class="day-label">Thứ 6, 22/09</div>
+                  <div class="day-label">Thứ 7, 23/09</div>
+                  <div class="day-label">Chủ Nhật, 24/09</div>
+                </div>
+              
+                <div class="timetable" id="timetable">
+                  <!-- Cột thời gian từ 0h đến 23h -->
+                  <div class="time-column">
+                    <div class="time">00:00</div>
+                    <div class="time">01:00</div>
+                    <div class="time">02:00</div>
+                    <div class="time">03:00</div>
+                    <div class="time">04:00</div>
+                    <div class="time">05:00</div>
+                    <div class="time">06:00</div>
+                    <div class="time">07:00</div>
+                    <div class="time">08:00</div>
+                    <div class="time">09:00</div>
+                    <div class="time">10:00</div>
+                    <div class="time">11:00</div>
+                    <div class="time">12:00</div>
+                    <div class="time">13:00</div>
+                    <div class="time">14:00</div>
+                    <div class="time">15:00</div>
+                    <div class="time">16:00</div>
+                    <div class="time">17:00</div>
+                    <div class="time">18:00</div>
+                    <div class="time">19:00</div>
+                    <div class="time">20:00</div>
+                    <div class="time">21:00</div>
+                    <div class="time">22:00</div>
+                    <div class="time">23:00</div>
+                    <div class="time"></div>
+                  </div>
+              
+                  <!-- Cột cho các task và lưới thời gian -->
+                  <div class="days-grid">
+                    <div class="day-column" id="day-1"></div>
+                    <div class="day-column" id="day-2"></div>
+                    <div class="day-column" id="day-3"></div>
+                    <div class="day-column" id="day-4"></div>
+                    <div class="day-column" id="day-5"></div>
+                    <div class="day-column" id="day-6"></div>
+                    <div class="day-column" id="day-7"></div>
+                  </div>
+                </div>
+              </div>
+              
+              
+            <!-- <div class="time-table">
                 <div class="times">
                     <div class="time"></div>
                 </div>
                 <div class="task-area">
                     
                 </div>
-            </div> 
+            </div>  -->
         </div>
     </div>
 </div>

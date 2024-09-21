@@ -18,7 +18,7 @@ html,body{
     bottom: 0px;
     right: 0px;
     left: 0px;
-    background-color: rgb(99, 97, 97);
+    background-color: rgb(255, 255, 255);
 }
 .topbar{
     box-sizing: border-box;
@@ -38,6 +38,11 @@ html,body{
 .topbar-left .show-hide-btn{
     font-size: 27px;
     margin-left: 10px;
+    transition: 0.3s;
+    &:hover{
+        transition: 0.3s;
+        color: rgb(107, 231, 158);
+    }
 }
 .topbar-left .logo-name{
     display: flex;
@@ -140,13 +145,24 @@ html,body{
     display: flex;
     height: 100%;
 }
+.hideText{
+    display: none;
+}
+.hide {
+    max-width: 0;
+    visibility: hidden;
+  }
 .navbar{
+    position: relative;
     width: 200px;
     background-color: rgb(255, 255, 255);
     padding: 0px 15px;
     border-right: 1px solid rgb(219, 214, 214);
 }
 .create-btn{
+    visibility: visible;
+    z-index: 100;
+    position: relative;
     margin-top: 20px;
     display: flex;
     gap: 10px;
@@ -172,10 +188,30 @@ html,body{
     background-color: white;
     height: 100%;
     overflow: scroll;
+    margin-right: 5px;
 }
 .scroll-view{
+    min-width: 800px;
     width: 100%;
+    padding-right: 10px;
+    box-sizing: border-box;
 }
+.main::-webkit-scrollbar {
+    width: 10px; /* Chiều rộng của thanh cuộn dọc */
+  }
+  
+  .main::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của thanh cuộn */
+  }
+  
+  .main::-webkit-scrollbar-thumb {
+    background: #d8d9d2; /* Màu của thanh cuộn */
+    border-radius: 10px; /* Bo tròn thanh cuộn */
+  }
+  
+  .main::-webkit-scrollbar-thumb:hover {
+    background: #edce90; /* Màu của thanh cuộn khi hover */
+  }
 .nav{
     display: flex;
     flex-direction: column;
@@ -190,6 +226,7 @@ html,body{
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.301);
         transition: 0.3s;
         padding-left: 20px;
+        color: #6dce70;
     }
 }
 .line{
@@ -199,12 +236,107 @@ html,body{
 }
 .status-menu{
     margin-top: 20px;
+    border-bottom: 1px solid gainsboro;
+    padding-bottom: 20px;
 }
 .status-menu .status-title{
+    padding: 5px 10px;
     font-size: 18px;
     font-weight: bold;
+    background-color: gainsboro;
+    border-radius: 10px;
 }
 .status-option{
     margin-top: 10px;
     font-size: 17px;
 }
+
+/* time table */
+.timetable-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .weekdays {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 60px; /* Để nhường chỗ cho cột thời gian */
+  }
+  
+  .day-label {
+    margin-top: 20px;
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .timetable {
+    display: flex;
+  }
+  
+  .time-column {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    width: 80px; 
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+    padding-right: 10px;
+  }
+  
+  .time {
+    height: 40px; /* 1 giờ = 60px */
+    line-height: 40px;
+    color: gray;
+    font-size: 14px;
+  }
+  
+  .days-grid {
+    display: flex;
+    flex-grow: 1;
+  }
+  
+  .day-column {
+    flex: 1; 
+    position: relative;
+    border-left: 1px solid #ccc;
+    background-color: white; 
+  }
+  .day-column .task {
+    display: flex;
+    padding: 0px 5px;
+    align-items: center;
+    position: absolute;
+    width: 100%; 
+    height: 30px;
+    background-color: #4caf50;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 1px solid #ccc;
+    box-sizing: border-box; 
+    border-radius: 10px;
+    transition: 0.3s;
+    font-size: 14px;
+    &:hover{
+        z-index: 100;
+        transition: 0.3s;
+        scale: 1.05;
+    }
+  }
+  
+  .hour-grid {
+    height: 40px;
+    border-bottom: 1px solid #eee;
+  }
+  /* Thêm lưới ngang cho từng giờ */
+.day-column .hour-grid {
+    position: relative;
+    top: -20px;
+    box-sizing: border-box;
+    height: 40px; 
+    border-bottom: 1px solid #ddd; 
+  }
+  
