@@ -8,8 +8,7 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'>
 </head>
 <body>
-    
-<!-- topbar -->
+
 <div class="wrap">
     <div class="topbar">
         <div class="topbar-left">

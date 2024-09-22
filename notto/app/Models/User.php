@@ -21,6 +21,20 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    // lấy tất cả task
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'uid');
+    }
+
+    // lấy task trong tuần
+    public function tasksInWeek($startOfWeek)
+    {
+        return $this->tasks()->whereBetween('deadline', [
+            $startOfWeek->format('Y-m-d 00:00:00'),
+            $startOfWeek->copy()->endOfWeek()->format('Y-m-d 23:59:59')
+        ])->get();
+    }
 
     /**
      * The attributes that should be hidden for serialization.

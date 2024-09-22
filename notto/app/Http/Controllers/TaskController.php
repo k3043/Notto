@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use Carbon\Carbon;
 use PHPUnit\Event\Telemetry\System;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use function Psy\debug;
 
@@ -31,10 +33,8 @@ class TaskController extends Controller
         }
 
         // Lấy danh sách tasks trong tuần
-        $tasks = Task::whereBetween('deadline', [
-            $startOfWeek->format('Y-m-d 00:00:00'),
-            $startOfWeek->copy()->endOfWeek()->format('Y-m-d 23:59:59')
-        ])->get();
+        $user = Auth::user();
+        $tasks = $user->tasksInWeek($startOfWeek); 
 
         return view('home', compact('weekdays', 'tasks', 'currentDate'));
     }
