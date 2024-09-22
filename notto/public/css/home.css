@@ -101,7 +101,7 @@ html,body{
     height: 30px;
     border-radius: 30px;
 }
-.wrap2{position: relative;display: flex;}
+.wrap2{position: relative;display: flex; }
 .search-icon{
     width: 32px;
     height: 32px;

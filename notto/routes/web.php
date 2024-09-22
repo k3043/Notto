@@ -25,10 +25,13 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::post('/tasks/store', [TaskController::class, 'store']);
     
-    //edit
+    //edit task
     Route::get('/tasks/edit/{id}', [TaskController::class, 'showEditPage']);
     Route::post('/tasks/edit/{id}', [TaskController::class, 'update']);
 
-    //delete
+    //delete task
     Route::get('/tasks/delete/{id}', [TaskController::class, 'delete']);
+
+    //show list of tasks
+    Route::get('/tasks', [TaskController::class, 'showList']);
 });

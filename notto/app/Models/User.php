@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -26,7 +27,30 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class, 'uid');
     }
+    public function incompletedTasks()
+    {
+        return $this->tasks()
+                    ->whereIn('status', ['pending', 'in progress'])
+                    ->where('deadline', '>=', Carbon::now())
+                    ->get();
+    }
 
+    // Tasks đã hoàn thành (trạng thái completed)
+    public function completedTasks()
+    {
+        return $this->tasks()
+                    ->where('status', 'completed')
+                    ->get();
+    }
+
+    // Tasks quá hạn (trạng thái chưa hoàn thành và deadline đã qua)
+    public function overDueTasks()
+    {
+        return $this->tasks()
+                    ->whereIn('status', ['pending', 'in progress'])
+                    ->where('deadline', '<', Carbon::now())
+                    ->get();
+    }
     // lấy task trong tuần
     public function tasksInWeek($startOfWeek)
     {

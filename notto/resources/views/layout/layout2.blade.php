@@ -14,20 +14,11 @@
     <div class="topbar">
         <div class="topbar-left">
             <i class="show-hide-btn fa-solid fa-bars"></i>
-            <div class="logo-name">
+            <a href="/"><div class="logo-name">
                 <i class="logo fa-solid fa-note-sticky"></i>
                 <div class="name">Note</div>
-            </div>
+            </div></a>
         </div>
-        <div class="topbar-date">
-            <a href="/" class="topbar-day">Hôm nay</a>
-            <div class="topbar-buttons">
-                <a  href="/?date=<?php echo $currentDate->copy()->subWeek()->format('Y-m-d H:i:s'); ?>" class="topbar-btn-left topbar-btn"><i class="fa-solid fa-angle-left"></i></a>
-                <a  href="/?date=<?php echo $currentDate->copy()->addWeek()->format('Y-m-d H:i:s'); ?>" class="topbar-btn-right topbar-btn"><i class="fa-solid fa-angle-right"></i></a>
-            </div>
-            <div class="topbar-month-year">Tháng {{$currentDate->month}}, {{$currentDate->year}}</div>
-        </div>
-
         <div class="wrap-search">
             <div class="wrap2">
                 <input type="text" class="search" placeholder="search...">  

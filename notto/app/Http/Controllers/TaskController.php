@@ -87,4 +87,13 @@ class TaskController extends Controller
         $task->delete();
         return redirect('/')->with('success', 'Task delete successfully');
     }
+
+    public function showList(){
+        $user = Auth::user();
+        $tasks = $user->tasks;
+        $completedTasks = $user->completedTasks();
+        $incompletedTasks = $user->incompletedTasks();
+        $overdueTasks = $user->overDueTasks();
+        return view('tasks', compact('tasks','completedTasks','incompletedTasks','overdueTasks'));
+    }
 }
