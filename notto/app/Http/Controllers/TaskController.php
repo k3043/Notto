@@ -55,5 +55,36 @@ class TaskController extends Controller
 
         return redirect('/')->with('success', 'Task added successfully!');
     }
-    
+    public function showEditPage($id){
+        $task = Task::find($id);
+        return view('editTask',compact('task'));
+    }
+    public function update(Request $request, $id)
+    {
+        // Xác thực dữ liệu đầu vào
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'deadline' => 'required|date_format:Y-m-d H:i:s',
+            'status' => 'required|string|in:pending,completed', // Ví dụ status có 2 trạng thái
+        ]);
+
+        // Tìm task theo ID
+        $task = Task::findOrFail($id);
+
+        // Cập nhật dữ liệu task
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->deadline = $request->input('deadline');
+        $task->status = $request->input('status');
+
+        $task->save();
+
+        return redirect('/')->with('success', 'Task updated successfully');
+    }
+    public function delete($id){
+        $task = Task::find($id);
+        $task->delete();
+        return redirect('/')->with('success', 'Task delete successfully');
+    }
 }

@@ -1,19 +1,33 @@
 @extends('layout.layout')
 @section('content')
+<div id="task-details" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="task-title"></h2>
+        <p id="task-description"></p>
+        <p id="task-deadline"></p>
+        <div class="mark-done"><i class="fa-regular fa-square-check"></i></div>
+        <div class="btns-group">    
+            <div class="edit-task" id="edit-task">Edit</div>
+            <div class="delete-task" id="delete-task">Delete</div>
+        </div>
+    </div>
+  
+</div>
 @if (session('success'))
-        <div class="alert autodis3s success top-right shadow0">
+        <div class="alert autodis3s success bottom-right shadow0">
             {{ session('success') }}
         </div>
     @endif
 
     @if (session('error'))
-        <div class="alert autodis3s success top-right shadow0">
+        <div class="alert autodis3s error bottom-right shadow0">
             {{ session('error') }}
         </div>
     @endif
 
     @if ($errors->any())
-        <div class="alert autodis3s success top-right shadow0">
+        <div class="alert autodis3s error bottom-right shadow0">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

@@ -18,13 +18,13 @@
     @endif
 
     @if (session('error'))
-        <div class="alert autodis3s success top-right shadow0">
+        <div class="alert autodis3s error top-right shadow0">
             {{ session('error') }}
         </div>
     @endif
 
     @if ($errors->any())
-        <div class="alert autodis3s success top-right shadow0">
+        <div class="alert autodis3s error top-right shadow0">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

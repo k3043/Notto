@@ -331,11 +331,10 @@ html,body{
   }
   .day-column .task {
     display: flex;
-    padding: 0px 5px;
+    padding: 4px 5px;
     align-items: center;
     position: absolute;
     width: 100%; 
-    height: 30px;
     background-color: #8dce8f;
     color: white;
     overflow: hidden;
@@ -343,7 +342,7 @@ html,body{
     text-overflow: ellipsis;
     border: 1px solid #ccc;
     box-sizing: border-box; 
-    border-radius: 10px;
+    border-radius: 7px;
     transition: 0.3s;
     font-size: 14px;
     &:hover{
@@ -357,7 +356,7 @@ html,body{
     height: 40px;
     border-bottom: 1px solid #eee;
   }
-  /* Thêm lưới ngang cho từng giờ */
+ 
 .day-column .hour-grid {
     position: relative;
     top: -20px;
@@ -391,4 +390,71 @@ html,body{
         transition: 0.3s;
         border: 1px solid #8dce8f;
     }
+}
+.modal {
+    display: none; /* Ẩn mặc định */
+    position: fixed;
+    z-index: 101;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối */
+}
+
+.modal-content {
+    position: relative;
+    border-radius: 10px;
+    background-color: #fff;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+    text-align: center;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    cursor: pointer;
+}
+#task-deadline{
+    margin-top: 20px;
+    padding: 5px 10px;
+    background-color: #8dce8f84;
+    border-radius: 10px;
+}
+.mark-done{
+    position: absolute;
+    bottom:20px;
+    right:20px;
+    font-size: 25px;
+}
+.btns-group{
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+.btns-group div{
+    cursor: pointer;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.edit-task{
+    background-color: rgb(79, 193, 208); transition: 0.3s;
+    &:hover{color: white;transition: 0.3s;width: 30%;}
+}
+.delete-task{
+    background-color: rgb(195, 68, 68);  
+    transition: 0.3s;
+    &:hover{color: white;transition: 0.3s;width: 30%;}
+
 }

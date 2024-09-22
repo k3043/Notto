@@ -19,8 +19,16 @@ Route::get('register', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [TaskController::class, 'index']);
+    //create task
     Route::get('/createTask',function () {
         return view('createTask');
     });
     Route::post('/tasks/store', [TaskController::class, 'store']);
+    
+    //edit
+    Route::get('/tasks/edit/{id}', [TaskController::class, 'showEditPage']);
+    Route::post('/tasks/edit/{id}', [TaskController::class, 'update']);
+
+    //delete
+    Route::get('/tasks/delete/{id}', [TaskController::class, 'delete']);
 });
