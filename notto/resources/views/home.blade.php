@@ -3,24 +3,6 @@
 
 <div class="scroll-view">
             <div class="timetable-container">
-            <?php
-                // Lấy ngày hiện tại
-                $currentDate = new DateTime();
-                $startOfWeek = clone $currentDate;
-                $startOfWeek->modify('monday this week');
-
-                $weekdays = [];
-
-                for ($i = 0; $i < 7; $i++) {
-                    $day = clone $startOfWeek;
-                    $day->modify("+$i days");
-                    $weekdays[] = [
-                        'name' => $day->format('D'), // Tên ngày viết tắt
-                        'date' => $day->format('j'),  // Ngày trong tháng
-                    ];
-                }
-                ?>
-
                 <div class="weekdays">
                     <div class="time-label"></div> 
                     <?php foreach ($weekdays as $weekday): ?>
