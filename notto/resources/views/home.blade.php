@@ -1,5 +1,26 @@
 @extends('layout.layout')
 @section('content')
+@if (session('success'))
+        <div class="alert autodis3s success top-right shadow0">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert autodis3s success top-right shadow0">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert autodis3s success top-right shadow0">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
 <div class="scroll-view">
             <div class="timetable-container">

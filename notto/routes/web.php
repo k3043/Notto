@@ -19,4 +19,8 @@ Route::get('register', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [TaskController::class, 'index']);
+    Route::get('/createTask',function () {
+        return view('createTask');
+    });
+    Route::post('/tasks/store', [TaskController::class, 'store']);
 });

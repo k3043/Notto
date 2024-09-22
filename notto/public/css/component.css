@@ -99,7 +99,6 @@ line{
 .btn{
     cursor: pointer;
     border: none;
-    font-family:"Maven Pro", sans-serif;
     background-color: rgb(30, 167, 171);
     border-radius: 10px;
     font-size: large;
@@ -155,7 +154,6 @@ divide-line{
 a{
     text-decoration: none;
     color: inherit;
-    font-family:"Maven Pro", sans-serif;
 }
 .hide{
     display: none;
@@ -250,7 +248,6 @@ a{
 p{
     margin-block-start: 0px;
     margin-block-end: 0px;
-    font-family:"Maven Pro", sans-serif;
 }
 .login-title{
     color: black;

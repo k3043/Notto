@@ -17,10 +17,8 @@ class TaskController extends Controller
     {
         $date = $request->input('date', now()); 
         $currentDate = new Carbon($date);
-        // Tính ngày đầu tuần
         $startOfWeek = $currentDate->startOfWeek();
-        
-        // Tạo mảng để lưu trữ thông tin ngày trong tuần
+   
         $weekdays = [];
         for ($i = 0; $i < 7; $i++) {
             $day = clone $startOfWeek;
@@ -28,15 +26,34 @@ class TaskController extends Controller
             $weekdays[] = [
                 'name' => $day->format('D'), // Tên ngày viết tắt
                 'date' => $day->format('j'),  // Ngày trong tháng
-                'fullDate' => $day->format('Y-m-d'), // Ngày đầy đủ để truy vấn
+                'fullDate' => $day->format('Y-m-d'), 
             ];
         }
 
-        // Lấy danh sách tasks trong tuần
         $user = Auth::user();
         $tasks = $user->tasksInWeek($startOfWeek); 
 
         return view('home', compact('weekdays', 'tasks', 'currentDate'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'deadline' => 'required|date',
+        ]);
+
+        // Tạo task mới
+        $task = new Task();
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->deadline = $request->input('deadline');
+        $task->uid = Auth::id(); 
+
+        $task->save();
+
+        return redirect('/')->with('success', 'Task added successfully!');
     }
     
 }
