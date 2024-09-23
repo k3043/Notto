@@ -18,4 +18,14 @@ class Task extends Model
     public function isFinished(){
         return $this->status == 'completed';
     }
+
+    public function markAsDone(){
+        $this->status = 'completed';
+        return $this->save();
+    }
+
+    public function markAsUnfinished(){
+        $this->status = $this->status == 'completed'? 'pending':$this->status;
+        return $this->save();
+    }
 }

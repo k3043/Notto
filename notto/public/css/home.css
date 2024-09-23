@@ -435,6 +435,13 @@ html,body{
     bottom:20px;
     right:20px;
     font-size: 25px;
+    border: none;
+    background-color: transparent;
+    transition: 0.3s;
+    &:hover{
+        scale:1.1;
+        transition: 0.3s;
+    }
 }
 .btns-group{
     margin-top: 20px;
@@ -442,7 +449,7 @@ html,body{
     gap: 20px;
     justify-content: center;
 }
-.btns-group div{
+.btns-group a{
     cursor: pointer;
     width: 100px;
     padding: 10px;
@@ -458,3 +465,8 @@ html,body{
     &:hover{color: white;transition: 0.3s;width: 30%;}
 
 }
+.day-column .completed{
+    background-color: #8dce8f;
+}
+.day-column .overdue{background-color: rgb(221, 65, 65);}
+.day-column .pending{background-color: rgb(202, 210, 214);}

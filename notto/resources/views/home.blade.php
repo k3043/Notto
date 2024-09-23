@@ -1,19 +1,6 @@
 @extends('layout.layout')
 @section('content')
-<div id="task-details" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 id="task-title"></h2>
-        <p id="task-description"></p>
-        <p id="task-deadline"></p>
-        <div class="mark-done"><i class="fa-regular fa-square-check"></i></div>
-        <div class="btns-group">    
-            <div class="edit-task" id="edit-task">Edit</div>
-            <div class="delete-task" id="delete-task">Delete</div>
-        </div>
-    </div>
-  
-</div>
+
 @if (session('success'))
         <div class="alert autodis3s success bottom-right shadow0">
             {{ session('success') }}
@@ -79,18 +66,62 @@
                   </div>
               
                   <div class="days-grid">
-                  <script id="tasks-data" type="application/json">
-                        {!! json_encode($tasks) !!}
-                    </script>
-                    <div class="day-column" id="day-1"></div>
-                    <div class="day-column" id="day-2"></div>
-                    <div class="day-column" id="day-3"></div>
-                    <div class="day-column" id="day-4"></div>
-                    <div class="day-column" id="day-5"></div>
-                    <div class="day-column" id="day-6"></div>
-                    <div class="day-column" id="day-0"></div>
-                  </div>
-                </div>     
+    @foreach($weekdays as $weekday)
+        @php
+            // Ensure that Sunday (day-0) is placed first
+            $dayIndex = $weekday['name'] === 'Sun' ? 0 : $loop->index + 1;
+        @endphp
+        <div class="day-column" id="day-{{ $dayIndex }}">
+            <div class="day-tasks">
+                @for($hour = 0; $hour < 24; $hour++)
+                    <div class="hour-grid"></div>
+                @endfor
+                
+                @if(isset($tasks[$weekday['fullDate']]))
+                    @foreach($tasks[$weekday['fullDate']] as $task)
+                    <div id="task-details" class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <h2 id="task-title">{{$task->title}}</h2>
+                                <p id="task-description">{{$task->description}}</p>
+                                <p id="task-deadline">{{$task->deadline}}</p>
+                                @if($task->isFinished())
+                                    <form action="/tasks/markAsUnfinished/{{ $task->id}}" method="POST" style="display:inline">
+                                        @csrf
+                                        <button type="submit" class="mark-done"><i class="fa-solid fa-circle-check"></i></button>
+                                    </form>
+                                @else
+                                    <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
+                                        @csrf
+                                        <button type="submit" class="mark-done"><i class="fa-regular fa-circle-check"></i></button>
+                                    </form>
+                                @endif
+                                <div class="btns-group">    
+                                    <a href="/tasks/edit/{{$task->id}}"  class="edit-task" id="edit-task">Edit</a>
+                                    <a href="/tasks/delete/{{$task->id}}" class="delete-task" id="delete-task">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        @php
+                            $deadline = \Carbon\Carbon::parse($task->deadline);
+                            $position = ($deadline->hour * 60 + $deadline->minute)*2/3 +19; // Position based on time
+                        @endphp
+                        <!-- <?php  $color = 'gray' ?>
+                        @if ($task->status == 'pending') $color = 'gray'
+                        @elif ($task->status == 'completed') $color = 'green'
+                        @else $color = 'red'
+                        @endif -->
+                        <div class="task {{$task->status}}" style="top: {{ $position }}px">
+                       
+                            {{$task->title}}, {{ $deadline->format('H:i') }}
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    @endforeach
+</div>
+
               </div>
         </div>
 @endsection

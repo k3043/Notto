@@ -4,9 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AuthController;
 
-
-
-
 //auth
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -30,8 +27,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tasks/edit/{id}', [TaskController::class, 'update']);
 
     //delete task
-    Route::get('/tasks/delete/{id}', [TaskController::class, 'delete']);
+    Route::delete('/tasks/delete/{id}', [TaskController::class, 'delete']);
 
     //show list of tasks
     Route::get('/tasks', [TaskController::class, 'showList']);
+
+    //status for tasks
+    Route::post('/tasks/markAsDone/{id}', [TaskController::class, 'markAsDone']);
+    Route::post('/tasks/markAsUnfinished/{id}', [TaskController::class, 'markAsUnfinished']);
 });

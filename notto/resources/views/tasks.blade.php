@@ -1,6 +1,27 @@
 @extends('layout.layout2')
 <link rel="stylesheet" href="/css/tasks.css"> 
 @section('content')
+@if (session('success'))
+        <div class="alert autodis3s success bottom-right shadow0">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert autodis3s error bottom-right shadow0">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert autodis3s error bottom-right shadow0">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 <div class="wrap-options">
     <p class="type1 task-type">All tasks</p>
     <p class="type2 task-type">Completed tasks</p>
@@ -23,7 +44,7 @@
         <td>
             
         
-            <a href="/task/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
+            <a href="/tasks/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
                 <form action="/tasks/delete/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     @method('DELETE')
@@ -36,7 +57,7 @@
                     <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
                 </form>
             @else
-                <form action="/tasks/markAsFinished/{{ $task->id}}" method="POST" style="display:inline">
+                <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
                 </form>
@@ -65,7 +86,7 @@
         <td>{{ $task->updated_at }}</td>
         <td>
          
-            <a href="/task/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
+            <a href="/tasks/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
                 <form action="/tasks/delete/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     @method('DELETE')
@@ -78,7 +99,7 @@
                     <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
                 </form>
             @else
-                <form action="/tasks/markAsFinished/{{ $task->id}}" method="POST" style="display:inline">
+                <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
                 </form>
@@ -108,7 +129,7 @@
         <td>
             
           
-            <a href="/task/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
+            <a href="/tasks/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
                 <form action="/tasks/delete/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     @method('DELETE')
@@ -121,7 +142,7 @@
                     <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
                 </form>
             @else
-                <form action="/tasks/markAsFinished/{{ $task->id}}" method="POST" style="display:inline">
+                <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
                 </form>
@@ -151,7 +172,7 @@
         <td>
             
            
-            <a href="/task/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
+            <a href="/tasks/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
                 <form action="/tasks/delete/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     @method('DELETE')
@@ -164,7 +185,7 @@
                     <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
                 </form>
             @else
-                <form action="/tasks/markAsFinished/{{ $task->id}}" method="POST" style="display:inline">
+                <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
                     <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
                 </form>

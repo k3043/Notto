@@ -18,7 +18,7 @@ class TaskController extends Controller
         $date = $request->input('date', now()); 
         $currentDate = new Carbon($date);
         $startOfWeek = $currentDate->startOfWeek();
-   
+       
         $weekdays = [];
         for ($i = 0; $i < 7; $i++) {
             $day = clone $startOfWeek;
@@ -29,12 +29,15 @@ class TaskController extends Controller
                 'fullDate' => $day->format('Y-m-d'), 
             ];
         }
-
+    
         $user = Auth::user();
-        $tasks = $user->tasksInWeek($startOfWeek); 
-
+        $tasks = $user->tasksInWeek($startOfWeek)->groupBy(function($task) {
+            return Carbon::parse($task->deadline)->format('Y-m-d'); // Group tasks by date
+        });
+    
         return view('home', compact('weekdays', 'tasks', 'currentDate'));
     }
+    
 
     public function store(Request $request)
     {
@@ -85,7 +88,7 @@ class TaskController extends Controller
     public function delete($id){
         $task = Task::find($id);
         $task->delete();
-        return redirect('/')->with('success', 'Task delete successfully');
+        return redirect()->back()->with('success', 'Task delete successfully');
     }
 
     public function showList(){
@@ -96,4 +99,20 @@ class TaskController extends Controller
         $overdueTasks = $user->overDueTasks();
         return view('tasks', compact('tasks','completedTasks','incompletedTasks','overdueTasks'));
     }
+    public function markAsDone($id){
+        $task = Task::find($id);
+        if ($task->markAsDone()) {
+            return redirect()->back()->with('success', 'Task marked as done successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to mark task as done.');
+        }
+    }
+    public function markAsUnfinished($id){
+        $task = Task::find($id);
+        if ($task->markAsUnfinished()) {
+            return redirect()->back()->with('success', 'Task marked as unfinished successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Failed to mark task as unfinished.');
+        }
+    } 
 }
