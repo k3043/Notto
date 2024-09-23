@@ -13,7 +13,7 @@ class Task extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'uid');
     }
     public function isFinished(){
         return $this->status == 'completed';

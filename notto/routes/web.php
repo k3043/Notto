@@ -7,6 +7,11 @@ use App\Http\Controllers\AuthController;
 //auth
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('login/{provider}', [AuthController::class, 'redirectToProvider']);
+Route::get('callback/{provider}', [AuthController::class, 'handleProviderCallback']);
+Route::middleware('web')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+ });
 Route::get('login', function () {
     return view('auth.login');
 })->name('login');

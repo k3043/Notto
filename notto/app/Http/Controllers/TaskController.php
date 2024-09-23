@@ -68,7 +68,7 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'deadline' => 'required|date_format:Y-m-d H:i:s',
+            'deadline' => 'required|date',
             'status' => 'required|string|in:pending,completed', // Ví dụ status có 2 trạng thái
         ]);
 
@@ -83,7 +83,7 @@ class TaskController extends Controller
 
         $task->save();
 
-        return redirect('/')->with('success', 'Task updated successfully');
+        return redirect()->back()->with('success', 'Task updated successfully');
     }
     public function delete($id){
         $task = Task::find($id);

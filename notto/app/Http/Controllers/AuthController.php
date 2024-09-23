@@ -78,57 +78,57 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    // public function redirectToProvider($provider)
-    // {
-    //     return Socialite::driver($provider)->stateless()->redirect();
-    // }
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->stateless()->redirect();
+    }
 
-    // public function handleProviderCallback($provider)
-    // {
-    //     try {
-    //         $socialUser = Socialite::driver($provider)->stateless()->user();
-    //     } catch (\Exception $e) {
-    //         return redirect()->route('login')->with('error', 'Unauthorized');
-    //     }
+    public function handleProviderCallback($provider)
+    {
+        try {
+            $socialUser = Socialite::driver($provider)->stateless()->user();
+        } catch (\Exception $e) {
+            return redirect()->route('login')->with('error', 'Unauthorized');
+        }
 
-    //     // Check if the user already exists
-    //     $user = User::where('provider', $provider)
-    //                 ->where('provider_id', $socialUser->getId())
-    //                 ->first();
+        // Check if the user already exists
+        $user = User::where('provider', $provider)
+                    ->where('provider_id', $socialUser->getId())
+                    ->first();
 
-    //     if ($user) {
-    //         Auth::login($user);
-    //         return redirect()->route('home');
-    //     }
+        if ($user) {
+            Auth::login($user);
+            return redirect('/');
+        }
 
-    //     // Check if the user exists by email
-    //     $existingUser = User::where('email', $socialUser->getEmail())->first();
-    //     if ($existingUser && !$existingUser->provider) {
-    //         return redirect()->route('login')->with('error', 'Email already in use');
-    //     }
+        // Check if the user exists by email
+        $existingUser = User::where('email', $socialUser->getEmail())->first();
+        if ($existingUser && !$existingUser->provider) {
+            return redirect()->route('login')->with('error', 'Email already in use');
+        }
 
-    //     // Create a new user if not exists
-    //     if (!$user) {
-    //         $user = User::create([
-    //             'name' => $socialUser->getName(),
-    //             'email' => $socialUser->getEmail(),
-    //             'provider' => $provider,
-    //             'provider_id' => $socialUser->getId(),
-    //             'password' => '', // Empty password for OAuth users
-    //         ]);
+        // Create a new user if not exists
+        if (!$user) {
+            $user = User::create([
+                'name' => $socialUser->getName(),
+                'email' => $socialUser->getEmail(),
+                'provider' => $provider,
+                'provider_id' => $socialUser->getId(),
+                'password' => '', // Empty password for OAuth users
+            ]);
 
-    //         Profile::create([
-    //             'uid' => $user->id,
-    //             'username' => $socialUser->getName(), 
-    //             'avatar' => $socialUser->getAvatar(), 
-    //             'dob' => null,
-    //             'bio' => null, 
-    //             'gender' => null, 
-    //         ]);
-    //     }
+            // Profile::create([
+            //     'uid' => $user->id,
+            //     'username' => $socialUser->getName(), 
+            //     'avatar' => $socialUser->getAvatar(), 
+            //     'dob' => null,
+            //     'bio' => null, 
+            //     'gender' => null, 
+            // ]);
+        }
 
-    //     Auth::login($user);
+        Auth::login($user);
 
-    //     return redirect()->route('home');
-    // }
+        return redirect('/');
+    }
 }

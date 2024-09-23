@@ -39,7 +39,7 @@
         <input type="password" name = 'password' class="password" placeholder="Password">
         <div class="wrap-btn">
             <button type="submit" class="login-btn btn">Login</button>
-            <button class="login-btn google-login-btn btn">Login with  <i class="fa-brands fa-google"></i></button>
+            <a href="/login/google"><button type="button" class="login-btn google-login-btn btn">Login with  <i class="fa-brands fa-google"></i></button></a>
         </div>
         <div class="regist-area">
             <p>Forgot password?</p>

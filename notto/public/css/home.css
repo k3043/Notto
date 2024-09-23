@@ -399,7 +399,7 @@ html,body{
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối */
+    background-color: rgba(0, 0, 0, 0.5); 
 }
 
 .modal-content {
@@ -414,7 +414,9 @@ html,body{
 }
 .close {
     color: #aaa;
-    float: right;
+    position: absolute;
+    top:5px;
+    right: 20px;
     font-size: 28px;
     font-weight: bold;
 }
@@ -424,49 +426,69 @@ html,body{
     color: #000;
     cursor: pointer;
 }
+#task-title{
+    border-bottom: 1px solid rgb(187, 185, 185);
+}
+#task-description{
+    margin-top: 20px;
+}
 #task-deadline{
+    color: rgb(175, 31, 31);
     margin-top: 20px;
     padding: 5px 10px;
-    background-color: #8dce8f84;
+    /* background-color: #8dce8f84; */
     border-radius: 10px;
+    /* border: 1px solid #8dce8f; */
 }
-.mark-done{
+
+.mark-done {
     position: absolute;
     bottom:20px;
-    right:20px;
-    font-size: 25px;
-    border: none;
-    background-color: transparent;
+    left:20px;
     transition: 0.3s;
+    background-color: transparent;
     &:hover{
         scale:1.1;
         transition: 0.3s;
     }
 }
+.mark-done button{
+    border: none;
+    background-color: transparent;
+}
+.mark-done i{
+    font-size: 25px;
+    color: #8dce8f;
+}
 .btns-group{
     margin-top: 20px;
     display: flex;
     gap: 20px;
-    justify-content: center;
+    justify-content: end;
 }
 .btns-group a{
     cursor: pointer;
-    width: 100px;
-    padding: 10px;
     border-radius: 10px;
+    transition: 0.3s;
+    font-size: 30px;
+    &:hover{scale:1.1;transition: 0.3s;}
 }
 .edit-task{
-    background-color: rgb(79, 193, 208); transition: 0.3s;
-    &:hover{color: white;transition: 0.3s;width: 30%;}
+    color: rgb(79, 193, 208); transition: 0.3s;
+   
 }
 .delete-task{
-    background-color: rgb(195, 68, 68);  
-    transition: 0.3s;
-    &:hover{color: white;transition: 0.3s;width: 30%;}
-
+    color: rgb(195, 68, 68);  
 }
-.day-column .completed{
-    background-color: #8dce8f;
-}
+.day-column .completed{background-color: #8dce8f;}
 .day-column .overdue{background-color: rgb(221, 65, 65);}
 .day-column .pending{background-color: rgb(202, 210, 214);}
+.task-status{
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #8dce8f84;
+    border-radius: 10px;
+}
+.task-status .completed{background-color: #8dce8f;}
+.task-status .overdue{background-color: rgb(221, 65, 65);}
+.task-status .pending{background-color: rgb(202, 210, 214);}
