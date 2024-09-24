@@ -75,7 +75,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout(); 
-        return redirect()->route('login');
+        return redirect('/login');
     }
 
     public function redirectToProvider($provider)
@@ -115,6 +115,7 @@ class AuthController extends Controller
                 'provider' => $provider,
                 'provider_id' => $socialUser->getId(),
                 'password' => '', // Empty password for OAuth users
+                'avatar' => $socialUser->getAvatar(), 
             ]);
 
             // Profile::create([

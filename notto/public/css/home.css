@@ -117,15 +117,22 @@ html,body{
 .noti-btn{
     margin-right: 20px;
     position: relative;
+    cursor: pointer;
 }
 .bell-icon{
     font-size: 25px;
     color: rgb(136, 134, 134);
+    transition: 0.3s;
+    &:hover{
+        scale: 1.1;
+        transition: 0.3s;
+        color: #8dce8f;
+    }
 }
 .number-of-noti{
     position: absolute;
-    top: -5px;
-    left: -5px;
+    top: -7px;
+    left: -7px;
     width: 20px;
     height: 20px;
     display: flex;
@@ -135,6 +142,7 @@ html,body{
     background-color: red;
     border-radius: 50%;
     text-align: center;
+    border: 2px solid white;
 }
 .avatar{
     background-color: aquamarine;
@@ -142,6 +150,13 @@ html,body{
     width: 40px;
     border-radius: 50%;
     border: 2px solid black;
+    overflow: hidden;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.avatar img{
+    width: 100%;
+    object-fit: cover; 
 }
 /* NAV BAR */
 .wrap-content{
@@ -483,6 +498,7 @@ html,body{
 .day-column .completed{background-color: #8dce8f;}
 .day-column .overdue{background-color: rgb(221, 65, 65);}
 .day-column .pending{background-color: rgb(202, 210, 214);}
+.day-column .late{background-color: rgb(228, 168, 27);}
 .task-status{
     margin-top: 10px;
     padding: 5px 10px;
@@ -492,3 +508,18 @@ html,body{
 .task-status .completed{background-color: #8dce8f;}
 .task-status .overdue{background-color: rgb(221, 65, 65);}
 .task-status .pending{background-color: rgb(202, 210, 214);}
+.task-status .late{background-color:rgb(228, 168, 27);}
+.completed{background-color: #8dce8f;}
+.overdue{background-color: rgb(221, 65, 65);}
+.pending{background-color: rgb(202, 210, 214);}
+.late{background-color: rgb(228, 168, 27);}
+.note{
+    margin-top: 10px;
+    display: flex;
+    gap:10px;
+}
+.notes .shape{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}

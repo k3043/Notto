@@ -34,7 +34,7 @@
         <th style="width:50%;border-right: 1px solid grey;">Task</th>
         <th>Due date</th>
         <th>Status</th>
-        <th>Action</th>
+        <th>Actions</th>
     </tr>
     @foreach($tasks as $task)
     <tr  class="task-line">

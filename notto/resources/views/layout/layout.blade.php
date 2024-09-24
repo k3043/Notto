@@ -40,7 +40,7 @@
             <i class="fa-solid fa-bell bell-icon"></i>
             <div class="number-of-noti">2</div>
         </div>
-        <div class="avatar"></div>
+        <div class="avatar"> <img src="{{Auth::user()->avatar}}" alt=""></div>
     </div>
 
     <div class="wrap-content">
@@ -52,23 +52,40 @@
         
         <div  class="create-btn"><i class="fa fa-add"></i><p id="createText">Create</p></div>
         <div class="create-options">
-            <div class="create-option">Event</div>
             <a href="/createTask"><div class="create-option">Task</div></a>
-            <div class="create-option">Appointment</div>
+            <a href="/createEvent"><div class="create-option">Event</div></a>
+            <a href="/createAppointment"><div class="create-option">Appointment</div></a>
         </div>
     </div>
 
         <div class="status-menu">
-            <div class="status-title">Status</div>
-            <div class="status-option1 status-option"><input type="checkbox" name="" id=""> option 1</div>
-            <div class="status-option2 status-option"><input type="checkbox" name="" id=""> option 2</div>
-        </div>
+    <div class="status-title">Status</div>
+    <div class="status-option1 status-option" style="color:rgb(202, 210, 214)">
+        <input type="checkbox" name="status" value="pending" id="status-pending"> pending
+    </div>
+    <div class="status-option2 status-option" style="color:#8dce8f">
+        <input type="checkbox" name="status" value="completed" id="status-completed"> completed
+    </div>
+    <div class="status-option3 status-option" style="color:rgb(221, 65, 65);">
+        <input type="checkbox" name="status" value="overdue" id="status-overdue"> overdue
+    </div>
+    <div class="status-option4 status-option" style="color:rgb(228, 168, 27)">
+        <input type="checkbox" name="status" value="late" id="status-late"> late
+    </div>
+</div>
         <!-- <div class="line"></div> -->
         <div class="nav">
             <a href="/tasks" class="tasks">Task list</a>
             <a href="" class="profile">Profile</a>
             <a href="" class="stats">Statistics</a>
         </div>
+        <!-- <div class="notes">
+            <div class="note"><div class="shape completed"></div> completed</div>
+            
+            <div class="note"><div class="shape pending"></div> pending</div>
+            <div class="note"><div class="shape late"></div> late</div>
+            <div class="note"><div class="shape overdue"></div> overdue</div>
+        </div> -->
     </div>
 <!-- main -->
     <div class="main">

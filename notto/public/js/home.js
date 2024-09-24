@@ -45,3 +45,27 @@ createBtn.onclick = function (){
 }
 
 
+const checkboxes = document.querySelectorAll('input[name="status"]');
+const taskss = document.querySelectorAll('.task');
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        console.log(checkbox.value);
+        filterTasks();
+    });
+});
+
+function filterTasks() {
+    const selectedStatuses = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+
+    taskss.forEach(task => {
+        const taskStatus = task.classList[1]; // Lấy class thứ 2 chứa trạng thái của task
+        if (selectedStatuses.length === 0 || selectedStatuses.includes(taskStatus)) {
+            task.style.display = 'block'; // Hiển thị task
+        } else {
+            task.style.display = 'none'; // Ẩn task
+        }
+    });
+}
+

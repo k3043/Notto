@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'provider',
-        'provider_id'
+        'provider_id',
+        'avatar'
     ];
     // lấy tất cả task
     public function tasks()

@@ -15,6 +15,12 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
+        $now = Carbon::now();
+
+        Task::where('status', 'pending')
+            ->where('deadline', '<', $now)
+            ->update(['status' => 'overdue']);
+            
         $date = $request->input('date', now()); 
         $currentDate = new Carbon($date);
         $startOfWeek = $currentDate->startOfWeek();
@@ -115,4 +121,12 @@ class TaskController extends Controller
             return redirect()->back()->with('error', 'Failed to mark task as unfinished.');
         }
     } 
+
+    //đang phát triển
+    public function showCreateAppointment(){
+        return redirect()->back()->with('success', 'Tính năng đang phát triển');
+    }
+    public function showCreateEvent(){
+        return redirect()->back()->with('success', 'Tính năng đang phát triển');
+    }
 }

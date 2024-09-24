@@ -40,4 +40,8 @@ Route::middleware(['auth'])->group(function () {
     //status for tasks
     Route::post('/tasks/markAsDone/{id}', [TaskController::class, 'markAsDone']);
     Route::post('/tasks/markAsUnfinished/{id}', [TaskController::class, 'markAsUnfinished']);
+
+    //đang phát triển
+    Route::get('/createAppointment', [TaskController::class, 'showCreateAppointment']);
+    Route::get('/createEvent', [TaskController::class, 'showCreateEvent']);
 });

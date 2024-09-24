@@ -15,12 +15,14 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'uid');
     }
-    public function isFinished(){
-        return $this->status == 'completed';
+    public function isFinished() {
+        return in_array($this->status, ['completed', 'late']);
     }
+    
 
     public function markAsDone(){
-        $this->status = 'completed';
+        if($this->status == 'pending') $this->status = 'completed';
+        if($this->status == 'overdue') $this->status ='late';
         return $this->save();
     }
 
