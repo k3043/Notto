@@ -14,37 +14,28 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    // public function register(Request $request)
-    // {
-    //     try {
-    //         $request->validate([
-    //             'name' => 'required|string|max:255',
-    //             'email' => 'required|string|email|max:255|unique:users',
-    //             'password' => 'required|string|min:8|confirmed',
-    //         ]);
+    public function register(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+            ]);
 
-    //         $user = User::create([
-    //             'name' => $request->name,
-    //             'email' => $request->email,
-    //             'password' => Hash::make($request->password),
-    //         ]);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-    //         $profile = Profile::create([
-    //             'uid' => $user->id,
-    //             'username' => $user->name, // Example: Use name as username
-    //             'avatar' => null, // You can set a default avatar or handle it separately
-    //             'dob' => null,//$socialUser->getDateOfBirth(), // Example: Date of birth
-    //             'bio' => null, // Example: Biography
-    //             'gender' => null, // Example: Gender
-    //         ]);      
+            Auth::login($user);
 
-    //         Auth::login($user);
-
-    //         return redirect()->route('home');
-    //     } catch (ValidationException $e) {
-    //         return redirect()->back()->withErrors($e->errors())->withInput();
-    //     }
-    // }
+            return redirect('/');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+    }
 
     public function login(Request $request)
     {
@@ -65,7 +56,7 @@ class AuthController extends Controller
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return redirect()->back()->withErrors(['password' => 'Incorrect email or password.'])->withInput();
             }
-
+        if (Auth::user()->role =='admin') return redirect('/admin');
             return redirect('/');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();

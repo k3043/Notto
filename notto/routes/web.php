@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 //auth
 Route::post('register', [AuthController::class, 'register']);
@@ -18,6 +19,7 @@ Route::get('login', function () {
 Route::get('register', function () {
     return view('auth.register');
 });
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [TaskController::class, 'index']);
@@ -40,6 +42,10 @@ Route::middleware(['auth'])->group(function () {
     //status for tasks
     Route::post('/tasks/markAsDone/{id}', [TaskController::class, 'markAsDone']);
     Route::post('/tasks/markAsUnfinished/{id}', [TaskController::class, 'markAsUnfinished']);
+
+    //admin
+    Route::get('/admin',[AdminController::class,'index']);
+    Route::post('delete/{id}',[AdminController::class,'deleteUser']);
 
     //đang phát triển
     Route::get('/createAppointment', [TaskController::class, 'showCreateAppointment']);

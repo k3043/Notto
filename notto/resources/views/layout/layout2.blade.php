@@ -47,9 +47,9 @@
         
         <div  class="create-btn"><i class="fa fa-add"></i><p id="createText">Create</p></div>
         <div class="create-options">
-            <div class="create-option">Event</div>
             <a href="/createTask"><div class="create-option">Task</div></a>
-            <div class="create-option">Appointment</div>
+            <a href="/createEvent"><div class="create-option">Event</div></a>
+            <a href="/createAppointment"><div class="create-option">Appointment</div></a>
         </div>
     </div>
 

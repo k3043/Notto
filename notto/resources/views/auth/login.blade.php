@@ -44,7 +44,7 @@
         </div>
         <div class="regist-area">
             <p>Forgot password?</p>
-            <a href=""><p class="create-new">Create new account</p></a>
+            <a href="/register"><p class="create-new">Create new account</p></a>
         </div>
     </form>  
 

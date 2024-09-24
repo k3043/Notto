@@ -1,0 +1,23 @@
+*{
+    font-family: 'arial';
+}
+.container{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+  }
+  .user-tbl{
+    width: 1000px;
+   margin-left: 80px;
+   border: none;
+   border-collapse: collapse;
+  }
+  th,td{
+    text-align: start;
+    padding: 10px 0px;
+  }
+  .cus-tbl tr:hover{
+    background-color: white;
+  }
