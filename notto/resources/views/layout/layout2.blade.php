@@ -31,7 +31,11 @@
             <i class="fa-solid fa-bell bell-icon"></i>
             <div class="number-of-noti">2</div>
         </div>
-        <div class="avatar"></div>
+        <div class="wrap-user">
+            <div class="avatar"> <img src="{{Auth::user()->avatar}}" alt=""></div>
+            <form action="/logout" method = 'post'>@csrf <button><i class=" logout-btn fa-solid fa-right-from-bracket"></i></button></form>  
+        </div>
+        
     </div>
 
     <div class="wrap-content">
@@ -49,11 +53,11 @@
         </div>
     </div>
 
-        <div class="status-menu">
+        <!-- <div class="status-menu">
             <div class="status-title">Status</div>
             <div class="status-option1 status-option"><input type="checkbox" name="" id=""> option 1</div>
             <div class="status-option2 status-option"><input type="checkbox" name="" id=""> option 2</div>
-        </div>
+        </div> -->
         <!-- <div class="line"></div> -->
         <div class="nav">
             <a href="/tasks" class="tasks">Task list</a>

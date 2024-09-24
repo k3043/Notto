@@ -40,7 +40,10 @@
             <i class="fa-solid fa-bell bell-icon"></i>
             <div class="number-of-noti">2</div>
         </div>
-        <div class="avatar"> <img src="{{Auth::user()->avatar}}" alt=""></div>
+        <div class="wrap-user">
+            <div class="avatar"> <img src="{{Auth::user()->avatar}}" alt=""></div>
+            <form action="/logout" method = 'post'>@csrf <button><i class=" logout-btn fa-solid fa-right-from-bracket"></i></button></form>  
+        </div>
     </div>
 
     <div class="wrap-content">

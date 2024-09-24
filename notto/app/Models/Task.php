@@ -27,7 +27,8 @@ class Task extends Model
     }
 
     public function markAsUnfinished(){
-        $this->status = $this->status == 'completed'? 'pending':$this->status;
+        if($this->status == 'completed') $this->status = 'pending';
+        if($this->status == 'late') $this->status ='overdue';
         return $this->save();
     }
 }
