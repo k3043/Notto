@@ -35,13 +35,15 @@
     <form action="/register" method="post" class="login-form">
     @csrf
         <div class="login-logo"></div>
-        <p class="login-title">Welcome!</p>
-        <input type="text" name = 'name' class="name" placeholder="username">
+        <p class="login-title">Register</p>
+        <input type="text" name = 'name' class="name" placeholder="Username">
         <input type="text" name = 'email' class="email" placeholder="Email">
         <input type="password" name = 'password' class="password" placeholder="Password">
-        <input type="password" name = 'password_confirmation' class="password" placeholder="Password">
+        <input type="password" name = 'password_confirmation' class="password" placeholder="Confirm password">
         <div class="wrap-btn">
-            <button type="submit" class="login-btn btn">Register</button>
+        <a href="/login"><button type="button" class="login-btn btn">Back to Login </i></button></a>
+            <button type="submit" class="login-btn btn google-login-btn">Register</button>
+           
         </div>
     </form>  
 

@@ -35,7 +35,7 @@
     <form action="/login" method="post" class="login-form">
     @csrf
         <div class="login-logo"></div>
-        <p class="login-title">Welcome!</p>
+        <p class="login-title">Login</p>
         <input type="text" name = 'email' class="email" placeholder="Email">
         <input type="password" name = 'password' class="password" placeholder="Password">
         <div class="wrap-btn">
