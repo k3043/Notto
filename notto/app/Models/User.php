@@ -33,8 +33,7 @@ class User extends Authenticatable
     public function incompletedTasks()
     {
         return $this->tasks()
-                    ->whereIn('status', ['pending', 'in progress'])
-                    ->where('deadline', '>=', Carbon::now())
+                    ->whereIn('status', ['pending', 'overdue'])
                     ->get();
     }
 
@@ -42,16 +41,15 @@ class User extends Authenticatable
     public function completedTasks()
     {
         return $this->tasks()
-                    ->where('status', 'completed')
+                    ->whereIn('status', ['completed','late'])
                     ->get();
     }
 
-    // Tasks quá hạn (trạng thái chưa hoàn thành và deadline đã qua)
+    // Tasks quá hạn
     public function overDueTasks()
     {
         return $this->tasks()
-                    ->whereIn('status', ['pending', 'in progress'])
-                    ->where('deadline', '<', Carbon::now())
+                    ->whereIn('status', ['overdue'])
                     ->get();
     }
     // lấy task trong tuần

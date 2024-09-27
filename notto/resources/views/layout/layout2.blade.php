@@ -32,7 +32,7 @@
             <div class="number-of-noti">2</div>
         </div>
         <div class="wrap-user">
-            <div class="avatar"> <img src="{{Auth::user()->avatar}}" alt=""></div>
+            <div class="avatar"> <img src="{{Auth::user()->avatar?Auth::user()->avatar:'/images/defaultava.jpg'}}" alt=""></div>
             <form action="/logout" method = 'post'>@csrf <button><i class=" logout-btn fa-solid fa-right-from-bracket"></i></button></form>  
         </div>
         

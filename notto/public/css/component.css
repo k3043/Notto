@@ -132,15 +132,26 @@ divide-line{
 }
 .cancel{
     color: black;
+    padding: 8px;
+    box-sizing: border-box;
 }
 .ok{
     color: rgb(30, 167, 171);
+    font-size: 18px;
+    border: none;
+    padding: 8px;
+    width: 100%;
+    &:hover{
+        transition: 0.3s;
+        color: white;
+        background-color: rgb(218, 216, 216);
+    }
 }
 .bottom-btn-item{
     font-size: 18px;
     border: none;
-    padding: 8px;
-    flex: 1;
+    width: 190px;
+    box-sizing: border-box;
     &:hover{
         transition: 0.3s;
         color: white;

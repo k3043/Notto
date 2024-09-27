@@ -49,7 +49,6 @@ const checkboxes = document.querySelectorAll('input[name="status"]');
 const taskss = document.querySelectorAll('.task');
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function() {
-        console.log(checkbox.value);
         filterTasks();
     });
 });

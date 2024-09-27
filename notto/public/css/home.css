@@ -488,6 +488,21 @@ html,body{
     font-size: 30px;
     &:hover{scale:1.1;transition: 0.3s;}
 }
+.btns-group i{
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-size: 30px;
+    &:hover{scale:1.1;transition: 0.3s;}
+}
+.btns-group button{
+   border: none;
+   background-color: transparent;
+}
+.btns-group form{
+    display: flex;
+    align-items: center;
+}
 .edit-task{
     color: rgb(79, 193, 208); transition: 0.3s;
    

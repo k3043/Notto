@@ -54,12 +54,12 @@
             @if($task->isFinished())
                 <form action="/tasks/markAsUnfinished/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check" style="color:#8dce8f" style="color:#8dce8f"></i></button>
                 </form>
             @else
                 <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check" style="color:#8dce8f" style="color:#8dce8f" style="color:#8dce8f" style="color:#8dce8f"></i></button>
                 </form>
             @endif
             
@@ -77,13 +77,15 @@
         <th style="width:50%;border-right: 1px solid grey;">Task</th>
         <th>Due date</th>
         <th>Completed at</th>
+        <th>Status</th>
         <th>Action</th>
     </tr>
     @foreach($completedTasks as $task)
     <tr  class="task-line">
-        <td class="td-taskname">{{ $task->title }}</td>
-        <td>{{ $task->deadline?$task->deadline:"no due date" }}</td>
-        <td>{{ $task->updated_at }}</td>
+        <td class="td-taskname" style="color: {{$task->status == 'late'?'red':'black'}}">{{ $task->title }}</td>
+        <td style="color: {{$task->status == 'late'?'red':'black'}}">{{ $task->deadline}}</td>
+        <td style="color: {{$task->status == 'late'?'red':'black'}}">{{ $task->updated_at }}</td>
+        <td style="color: {{$task->status == 'late'?'red':'black'}}">{{ $task->status }}</td>
         <td>
          
             <a href="/tasks/edit/{{$task->id}}"><i class="fa-solid fa-edit"></i></a>
@@ -96,12 +98,12 @@
             @if($task->isFinished())
                 <form action="/tasks/markAsUnfinished/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check" style="color:#8dce8f"></i></button>
                 </form>
             @else
                 <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check" style="color:#8dce8f"></i></button>
                 </form>
             @endif
             
@@ -139,12 +141,12 @@
             @if($task->isFinished())
                 <form action="/tasks/markAsUnfinished/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check" style="color:#8dce8f" ></i></button>
                 </form>
             @else
                 <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check" style="color:#8dce8f" ></i></button>
                 </form>
             @endif
             
@@ -182,12 +184,12 @@
             @if($task->isFinished())
                 <form action="/tasks/markAsUnfinished/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check" style="color:#8dce8f" ></i></button>
                 </form>
             @else
                 <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check"></i></button>
+                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check" style="color:#8dce8f" ></i></button>
                 </form>
             @endif
             

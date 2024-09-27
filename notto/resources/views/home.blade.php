@@ -33,12 +33,23 @@
             <div class="timetable-container">
                 <div class="weekdays">
                     <div class="time-label"></div> 
-                    <?php foreach ($weekdays as $weekday): ?>
+
+                    @php
+                        $today = date('Y-m-d'); // Lấy ngày hôm nay theo định dạng 'Y-m-d'
+                    @endphp
+
+                    @foreach ($weekdays as $weekday)
                         <div class="day-label">
-                            <div class="day-name"><?php echo $weekday['name']; ?></div>
-                            <div class="day-date"><?php echo $weekday['date']; ?></div>
+                            <!-- So sánh ngày hiện tại và thay đổi màu sắc bằng cách thêm class 'today' nếu là ngày hôm nay -->
+                            <div class="day-name" >
+                                {{ $weekday['name'] }}
+                            </div>
+                            <div class="day-date" style="background-color: {{ $weekday['fullDate'] === $today ? '#d9ecce' : 'transparent' }}">
+                                {{ $weekday['date'] }}
+                            </div>
                         </div>
-                    <?php endforeach; ?>
+                    @endforeach
+
                 </div>
               
                 <div class="timetable" id="timetable">
@@ -107,11 +118,22 @@
                                 @endif
                                 <div class="btns-group">    
                                     <a href="/tasks/edit/{{$task->id}}"  id="edit-task"><i class="edit-task fa-solid fa-pen-to-square"></i></a>
-                                    <a href="/tasks/delete/{{$task->id}}"  id="delete-task"><i class="delete-task fa-solid fa-trash"></i></a>
+                                    <form action="/tasks/delete/{{$task->id}}" method="post" id="delete-task">@csrf @method('DELETE') <button><i class="delete-task fa-solid fa-trash"></i></button></form>
                                 </div>
                             </div>
                         </div>
-                        
+<?php
+    $user = Auth::user();
+    $notifications = $user->notifications; // Lấy tất cả thông báo cho user
+?>                        
+
+@foreach ($notifications as $notification)
+    <div class="alert alert-info">
+        {{ $notification->data['message'] }}
+    </div>
+@endforeach
+
+
                         @php
                             $deadline = \Carbon\Carbon::parse($task->deadline);
                             $position = ($deadline->hour * 60 + $deadline->minute)*2/3 +19; // Position based on time
