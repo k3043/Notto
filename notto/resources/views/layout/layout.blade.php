@@ -20,12 +20,12 @@
             </div>
         </div>
         <div class="topbar-date">
-            <a href="/" class="topbar-day">Hôm nay</a>
+            <a href="/" class="topbar-day">Today</a>
             <div class="topbar-buttons">
                 <a  href="/?date=<?php echo $currentDate->copy()->subWeek()->format('Y-m-d H:i:s'); ?>" class="topbar-btn-left topbar-btn"><i class="fa-solid fa-angle-left"></i></a>
                 <a  href="/?date=<?php echo $currentDate->copy()->addWeek()->format('Y-m-d H:i:s'); ?>" class="topbar-btn-right topbar-btn"><i class="fa-solid fa-angle-right"></i></a>
             </div>
-            <div class="topbar-month-year">Tháng {{$currentDate->month}}, {{$currentDate->year}}</div>
+            <div class="topbar-month-year"> {{$currentDate->month}}, {{$currentDate->year}}</div>
         </div>
 
         <div class="wrap-search">
@@ -79,8 +79,8 @@
         <!-- <div class="line"></div> -->
         <div class="nav">
             <a href="/tasks" class="tasks">Task list</a>
-            <a href="" class="profile">Profile</a>
-            <a href="" class="stats">Statistics</a>
+            <a href="/profile/{{Auth::user()->id}}" class="profile">Profile</a>
+            <a href="/statistics" class="stats">Statistics</a>
         </div>
         <!-- <div class="notes">
             <div class="note"><div class="shape completed"></div> completed</div>

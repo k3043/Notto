@@ -20,10 +20,10 @@
             </div></a>
         </div>
         <div class="wrap-search">
-            <div class="wrap2">
+            <!-- <div class="wrap2">
                 <input type="text" class="search" placeholder="search...">  
                 <button type="button" class="search-icon"><i class="fa fa-search"></i></button> 
-            </div>
+            </div> -->
             
         </div>
 
@@ -61,8 +61,8 @@
         <!-- <div class="line"></div> -->
         <div class="nav">
             <a href="/tasks" class="tasks">Task list</a>
-            <a href="" class="profile">Profile</a>
-            <a href="" class="stats">Statistics</a>
+            <a href="/profile/{{Auth::user()->id}}" class="profile">Profile</a>
+            <a href="/statistics" class="stats">Statistics</a>
         </div>
     </div>
 <!-- main -->

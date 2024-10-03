@@ -44,6 +44,18 @@ class User extends Authenticatable
                     ->whereIn('status', ['completed','late'])
                     ->get();
     }
+    public function completedOntimeTasks()
+    {
+        return $this->tasks()
+                    ->whereIn('status', ['completed'])
+                    ->get();
+    }
+    public function latedTasks()
+    {
+        return $this->tasks()
+                    ->whereIn('status', ['late'])
+                    ->get();
+    }
 
     // Tasks quá hạn
     public function overDueTasks()

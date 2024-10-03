@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatController;
 //auth
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -42,6 +43,13 @@ Route::middleware(['auth'])->group(function () {
     //status for tasks
     Route::post('/tasks/markAsDone/{id}', [TaskController::class, 'markAsDone']);
     Route::post('/tasks/markAsUnfinished/{id}', [TaskController::class, 'markAsUnfinished']);
+
+    //profile
+    Route::get('/profile/{id}',[ProfileController::class,'index']);
+    Route::post('/profile/update',[ProfileController::class,'update']);
+
+    // stat
+    Route::get('/statistics',[StatController::class,'index']);
 
     //admin
     Route::get('/admin',[AdminController::class,'index']);

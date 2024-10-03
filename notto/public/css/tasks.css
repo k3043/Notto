@@ -3,8 +3,9 @@
     text-align: center;
     border: none;
     border-collapse: collapse;
-    position: absolute;
+    position: relative;
     display: none;
+    margin-bottom: 70px;
 }
 
 .selected{

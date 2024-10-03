@@ -203,6 +203,8 @@
     @endforeach
     </table >
 
+
 </div>
+
 <script src="/js/tasks.js"></script>
 @endsection
