@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class User extends Authenticatable
@@ -28,11 +29,14 @@ class User extends Authenticatable
     // lấy tất cả task
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'uid');
+        return $this->hasMany(Task::class, 'uid')->orWhere('assignee', Auth::user()->email);
     }
     public function incompletedTasks()
     {
         return $this->tasks()
+                    
+                    ->whereNull('assignee')
+                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['pending', 'overdue'])
                     ->get();
     }
@@ -41,18 +45,24 @@ class User extends Authenticatable
     public function completedTasks()
     {
         return $this->tasks()
+                    ->whereNull('assignee')
+                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['completed','late'])
                     ->get();
     }
     public function completedOntimeTasks()
     {
         return $this->tasks()
+                    ->whereNull('assignee')
+                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['completed'])
                     ->get();
     }
     public function latedTasks()
     {
         return $this->tasks()
+                    ->whereNull('assignee')
+                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['late'])
                     ->get();
     }
@@ -61,13 +71,15 @@ class User extends Authenticatable
     public function overDueTasks()
     {
         return $this->tasks()
+                    ->whereNull('assignee')
+                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['overdue'])
                     ->get();
     }
     // lấy task trong tuần
     public function tasksInWeek($startOfWeek)
     {
-        return $this->tasks()->whereBetween('deadline', [
+        return $this->tasks()->whereNull('assignee')->orWhere('assignee', Auth::user()->email)->whereBetween('deadline', [
             $startOfWeek->format('Y-m-d 00:00:00'),
             $startOfWeek->copy()->endOfWeek()->format('Y-m-d 23:59:59')
         ])->get();

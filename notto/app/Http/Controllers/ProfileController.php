@@ -24,4 +24,19 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
+    // public function searchUser(Request $request){
+    //     $keyword = $request->input('keyword');
+
+    //     // Tìm kiếm người dùng theo email hoặc tên
+    //     $users = User::where('email', 'LIKE', "%{$keyword}%")
+    //                  ->orWhere('name', 'LIKE', "%{$keyword}%")
+    //                  ->get();
+    
+    //     // Kiểm tra xem có người dùng nào được tìm thấy không
+    //     if ($users->isEmpty()) {
+    //         return redirect()->back()->withErrors('User not found');
+    //     }
+    
+    //     return redirect('/assignTask');
+    // }
 }

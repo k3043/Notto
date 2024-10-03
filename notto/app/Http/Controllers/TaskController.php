@@ -18,6 +18,8 @@ class TaskController extends Controller
         $now = Carbon::now();
 
         Task::where('status', 'pending')
+            ->whereNull('assignee')
+            ->orWhere('assignee', Auth::user()->email)
             ->where('deadline', '<', $now)
             ->update(['status' => 'overdue']);
             
@@ -144,5 +146,30 @@ class TaskController extends Controller
             ->get();
         }
         return redirect('/')->with(['result'=> $result,'keyword'=>$keyword]);
+    }
+// task for others
+    public function showAssignTaskPage(){
+        return view('/taskForOthers');
+    }
+    public function assignTask(Request $request){
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'deadline' => 'required|date',
+            'email'=>'required|email',
+        ]);
+        if ($request->input('email') === Auth::user()->email) {
+            return redirect()->back()->withErrors(['email' => 'You cannot assign tasks to yourself!']);
+        }
+        // Tạo task mới
+        $task = new Task();
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->deadline = $request->input('deadline');
+        $task->uid = Auth::id(); 
+        $task->assignee = $request->input('email'); 
+
+        $task->save();
+        return redirect()->back();
     }
 }

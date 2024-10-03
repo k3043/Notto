@@ -58,7 +58,7 @@
         <div class="create-options">
             <a href="/createTask"><div class="create-option">Task</div></a>
             <a href="/createEvent"><div class="create-option">Event</div></a>
-            <a href="/createAppointment"><div class="create-option">Appointment</div></a>
+            <a href="/assignTask"><div class="create-option">Task for others</div></a>
         </div>
     </div>
 

@@ -510,24 +510,28 @@ html,body{
 .delete-task{
     color: rgb(195, 68, 68);  
 }
-.day-column .completed{background-color: #8dce8f;}
-.day-column .overdue{background-color: rgb(221, 65, 65);}
-.day-column .pending{background-color: rgb(202, 210, 214);}
-.day-column .late{background-color: rgb(228, 168, 27);}
 .task-status{
     margin-top: 10px;
     padding: 5px 10px;
     background-color: #8dce8f84;
     border-radius: 10px;
 }
+.day-column .completed{background-color: #8dce8f;}
+.day-column .overdue{background-color: rgb(221, 65, 65);}
+.day-column .pending{background-color: rgb(202, 210, 214);}
+.day-column .late{background-color: rgb(228, 168, 27);}
+.day-column .others{background-color:rgb(219, 135, 188);}
+
 .task-status .completed{background-color: #8dce8f;}
 .task-status .overdue{background-color: rgb(221, 65, 65);}
 .task-status .pending{background-color: rgb(202, 210, 214);}
 .task-status .late{background-color:rgb(228, 168, 27);}
+.task-status .others{background-color:rgb(219, 135, 188);}
 .completed{background-color: #8dce8f;}
 .overdue{background-color: rgb(221, 65, 65);}
 .pending{background-color: rgb(202, 210, 214);}
 .late{background-color: rgb(228, 168, 27);}
+.others{background-color:rgb(219, 135, 188);}
 .note{
     margin-top: 10px;
     display: flex;
