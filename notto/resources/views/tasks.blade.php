@@ -54,12 +54,12 @@
             @if($task->isFinished())
                 <form action="/tasks/markAsUnfinished/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check" style="color:#8dce8f" style="color:#8dce8f"></i></button>
+                    <button type="submit" class="mark"><i class="fa-solid fa-circle-check"  style="color:#8dce8f"></i></button>
                 </form>
             @else
                 <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline">
                     @csrf
-                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check" style="color:#8dce8f" style="color:#8dce8f" style="color:#8dce8f" style="color:#8dce8f"></i></button>
+                    <button type="submit" class="mark"><i class="fa-regular fa-circle-check"  style="color:#8dce8f"></i></button>
                 </form>
             @endif
             

@@ -129,4 +129,20 @@ class TaskController extends Controller
     public function showCreateEvent(){
         return redirect()->back()->with('success', 'Tính năng đang phát triển');
     }
+
+    public function search(Request $request){
+        $user = Auth::user();
+        $keyword = $request->input('keyword');
+        if (!$keyword) {
+            $result = $user->tasks;
+        } else {
+            $result = Task::where('uid', $user->id) 
+            ->where(function($query) use ($keyword) {
+                $query->where('title', 'LIKE', "%{$keyword}%")
+                      ->orWhere('description', 'LIKE', "%{$keyword}%");
+            })
+            ->get();
+        }
+        return redirect('/')->with(['result'=> $result,'keyword'=>$keyword]);
+    }
 }

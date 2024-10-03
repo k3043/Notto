@@ -55,6 +55,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin',[AdminController::class,'index']);
     Route::post('delete/{id}',[AdminController::class,'deleteUser']);
 
+    //search
+    Route::post('/search', [TaskController::class, 'search']);
+
     //đang phát triển
     Route::get('/createAppointment', [TaskController::class, 'showCreateAppointment']);
     Route::get('/createEvent', [TaskController::class, 'showCreateEvent']);

@@ -29,11 +29,12 @@
         </div>
 
         <div class="wrap-search">
+            <form action="/search" method = "post">@csrf
             <div class="wrap2">
-                <input type="text" class="search" placeholder="search...">  
-                <button type="button" class="search-icon"><i class="fa fa-search"></i></button> 
+                <input type="text" class="search" placeholder="search..." name = "keyword">  
+                <button type="submit" class="search-icon"><i class="fa fa-search"></i></button> 
             </div>
-            
+            </form>
         </div>
 
         <div class="noti-btn">
@@ -90,6 +91,67 @@
             <div class="note"><div class="shape overdue"></div> overdue</div>
         </div> -->
     </div>
+    @if(session('result'))
+    <div class="search-result-container">
+        <i class="close-button fa-solid fa-xmark"></i>
+        <h2 class="text">Result for "{{ session('keyword')}}"</h2>
+         
+        <div class="search-result"> 
+            @if(count(session('result')) == 0)
+                <p style="margin-top: 10px;">Task not found !</p>
+            @else
+                @foreach(session('result') as $task)
+                    <div class="task-result">
+                    <div class="button-container">
+                    @if($task->isFinished())
+                        <form action="/tasks/markAsUnfinished/{{ $task->id }}" method="POST" style="display:inline" class='mark-done2'>
+                            @csrf
+                            <button type="submit" >
+                                <i class="fa-solid fa-circle-check" style="color:#8dce8f;"></i>
+                            </button>
+                        </form>
+                    @else
+                    <form action="/tasks/markAsDone/{{ $task->id }}" method="POST" style="display:inline" class='mark-done2'>
+                            @csrf
+                            <button type="submit" >
+                                <i style="color:#8dce8f;" class="fa-regular fa-circle-check"></i>
+                            </button>
+                        </form>
+                    @endif
+
+                    <form action="/tasks/delete/{{ $task->id }}" method="POST" style="display:inline" class='delete-task'>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" >
+                            <i style="color:#e57373;" class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+
+                    <form action="/tasks/edit/{{ $task->id }}" method="GET" style="display:inline" class='edit-task'>
+                        @csrf
+                        <button type="submit" >
+                            <i style="color:#2196F3;" class="fa-solid fa-pencil-alt"></i>
+                        </button>
+                    </form>
+                </div>
+
+                         
+                        <h3 class="title">{{$task->title}}</h3>
+                        <div class="deadline">Deadline: {{$task->deadline}}</div>
+                        <div class="status">""{{$task->status}}""</div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+    </div>
+    <script>
+        const close = document.querySelector('.close-button');
+        const frame = document.querySelector('.search-result-container');
+        close.onclick = function (){
+            frame.style.display = 'none'
+        }
+    </script>
+    @endif
 <!-- main -->
     <div class="main">
         @yield('content')
