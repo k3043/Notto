@@ -18,8 +18,6 @@ class TaskController extends Controller
         $now = Carbon::now();
 
         Task::where('status', 'pending')
-            ->whereNull('assignee')
-            ->orWhere('assignee', Auth::user()->email)
             ->where('deadline', '<', $now)
             ->update(['status' => 'overdue']);
             
@@ -109,10 +107,14 @@ class TaskController extends Controller
     }
     public function markAsDone($id){
         $task = Task::find($id);
-        if ($task->markAsDone()) {
-            return redirect()->back()->with('success', 'Task marked as done successfully!');
-        } else {
-            return redirect()->back()->with('error', 'Failed to mark task as done.');
+        if($task->assignee==null){
+            if ($task->markAsDone()) {
+                return redirect()->back()->with('success', 'Task marked as done successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to mark task as done.');
+            }
+        }else{
+            return redirect('/submit/'. $id);
         }
     }
     public function markAsUnfinished($id){
@@ -150,6 +152,9 @@ class TaskController extends Controller
 // task for others
     public function showAssignTaskPage(){
         return view('/taskForOthers');
+    }
+    public function showSubmitPage(){
+        return view('submit');
     }
     public function assignTask(Request $request){
         $request->validate([

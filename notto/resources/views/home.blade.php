@@ -106,11 +106,16 @@
                                 <p id="task-deadline">Deadline: {{$task->deadline}}</p>
                                 <p class="task-status {{$task->status}}">{{$task->status}}</p>
                                 @if($task->isFinished())
-                                    <form action="/tasks/markAsUnfinished/{{ $task->id}}" method="POST" style="display:inline" class='mark-done'>
+                            
+                                
+                                    <form action="/tasks/markAsUnfinished/{{$task->id}}" method="POST" style="display:inline" class='mark-done'>
                                         @csrf
                                         <button type="submit" style="color:#8dce8f;"><i class="fa-solid fa-circle-check"></i></button>
                                     </form>
+                                
+                                
                                 @else
+                                 
                                     <form action="/tasks/markAsDone/{{ $task->id}}" method="POST" style="display:inline" class='mark-done'>
                                         @csrf
                                         <button type="submit"  style="color:#8dce8f;"><i class="fa-regular fa-circle-check"></i></button>

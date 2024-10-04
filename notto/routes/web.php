@@ -58,9 +58,12 @@ Route::middleware(['auth'])->group(function () {
     //search
     Route::post('/search', [TaskController::class, 'search']);
 
+    // assign task
+    Route::get('/assignTask', [TaskController::class, 'showAssignTaskPage']);
+    Route::post('/assignTask', [TaskController::class, 'assignTask']);
+    Route::get('/submit/{id}', [TaskController::class, 'showSubmitPage']);
     //đang phát triển
     Route::get('/createAppointment', [TaskController::class, 'showCreateAppointment']);
     Route::get('/createEvent', [TaskController::class, 'showCreateEvent']);
-    Route::get('/assignTask', [TaskController::class, 'showAssignTaskPage']);
-    Route::post('/assignTask', [TaskController::class, 'assignTask']);
+    
 });
