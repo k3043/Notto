@@ -520,18 +520,32 @@ html,body{
 .day-column .overdue{background-color: rgb(221, 65, 65);}
 .day-column .pending{background-color: rgb(202, 210, 214);}
 .day-column .late{background-color: rgb(228, 168, 27);}
-.day-column .others{background-color:rgb(219, 135, 188);}
+.day-column .others::before {
+    content: ''; 
+    display: inline-block;
+    position: absolute;
+    width: 15px; 
+    height: 15px; 
+    background-color: rgb(89, 169, 234); 
+    border-radius: 50%; 
+    margin-right: 5px; 
+    vertical-align: middle; 
+}
+.day-column .others p {
+    margin-left: 20px;
+    color:white;
+}
 
 .task-status .completed{background-color: #8dce8f;}
 .task-status .overdue{background-color: rgb(221, 65, 65);}
 .task-status .pending{background-color: rgb(202, 210, 214);}
 .task-status .late{background-color:rgb(228, 168, 27);}
-.task-status .others{background-color:rgb(219, 135, 188);}
+.task-status .others{background-color:rgb(89, 169, 234);}
 .completed{background-color: #8dce8f;}
 .overdue{background-color: rgb(221, 65, 65);}
 .pending{background-color: rgb(202, 210, 214);}
 .late{background-color: rgb(228, 168, 27);}
-.others{background-color:rgb(219, 135, 188);}
+.others{background-color:rgb(89, 169, 234);}
 .note{
     margin-top: 10px;
     display: flex;
@@ -648,4 +662,18 @@ html,body{
         transition: 0.3s;
         scale: 1.1;
     } 
+}
+.subtitle{
+    background-color: #8dce8f85;
+    padding: 4px;
+    margin: 10px 0px;
+    width: 100%;
+    border-radius: 30px;
+    text-align: center;
+}
+.modal-content a{
+    color: #8dce8f;
+    &:hover{
+        text-decoration: underline;
+    }
 }

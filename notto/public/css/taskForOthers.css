@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa; /* Màu nền nhẹ */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 50%;
+    margin: 50px auto; 
+    background-color: #ffffff; 
+    padding: 20px;
+    border-radius: 10px; /* Bo góc cho container */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    
+}
+
+h2 {
+    text-align: center; /* Căn giữa tiêu đề */
+    color: #333; /* Màu tiêu đề */
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+
+.form-group label {
+    margin-right: 10px;
+    width: 100px;
+    font-weight: bold; /* Chữ đậm cho nhãn */
+    color: #555; /* Màu chữ nhãn */
+}
+
+.form-group input[type="text"] {
+    flex-grow: 1;
+    padding: 10px; /* Thêm padding cho input */
+    border: 1px solid #ced4da; /* Viền input */
+    border-radius: 5px; /* Bo góc cho input */
+    transition: border-color 0.3s; /* Hiệu ứng chuyển màu viền */
+}
+
+.form-group input[type="text"]:focus {
+    border-color: #80bdff; /* Màu viền khi focus */
+    outline: none; /* Ẩn outline */
+}
+
+.form-group button {
+    padding: 10px 15px;
+    background-color: #28a745; /* Màu nền nút submit */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bo góc cho nút */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+.form-group button:hover {
+    background-color: #218838; /* Màu nền khi hover */
+}
+
+.remove-button {
+    padding: 5px 10px;
+    background-color: #dc3545; /* Màu nút xóa */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bo góc cho nút xóa */
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+.remove-button:hover {
+    background-color: #c82333; /* Màu nút xóa khi hover */
+}

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use App\Models\Task;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -29,40 +29,39 @@ class User extends Authenticatable
     // lấy tất cả task
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'uid')->orWhere('assignee', Auth::user()->email);
+        return $this->hasMany(Task::class, 'uid');
+        //  ->orWhere('assignee', Auth::user()->email);
     }
-    public function incompletedTasks()
-    {
-        return $this->tasks()
-                    
-                    ->whereNull('assignee')
+    public function allTasks()
+        {
+            return Task::where('uid', $this->id)
                     ->orWhere('assignee', Auth::user()->email)
+                    ->get();
+        }
+    public function incompletedTasks()
+    { 
+        $tasks =  $this->tasks()
                     ->whereIn('status', ['pending', 'overdue'])
                     ->get();
+        return $tasks;
     }
 
     // Tasks đã hoàn thành (trạng thái completed)
     public function completedTasks()
     {
         return $this->tasks()
-                    ->whereNull('assignee')
-                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['completed','late'])
                     ->get();
     }
     public function completedOntimeTasks()
     {
         return $this->tasks()
-                    ->whereNull('assignee')
-                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['completed'])
                     ->get();
     }
     public function latedTasks()
     {
         return $this->tasks()
-                    ->whereNull('assignee')
-                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['late'])
                     ->get();
     }
@@ -71,18 +70,24 @@ class User extends Authenticatable
     public function overDueTasks()
     {
         return $this->tasks()
-                    ->whereNull('assignee')
-                    ->orWhere('assignee', Auth::user()->email)
                     ->whereIn('status', ['overdue'])
                     ->get();
     }
     // lấy task trong tuần
     public function tasksInWeek($startOfWeek)
     {
-        return $this->tasks()->whereNull('assignee')->orWhere('assignee', Auth::user()->email)->whereBetween('deadline', [
+        return $this->allTasks()
+        ->whereBetween('deadline', [
             $startOfWeek->format('Y-m-d 00:00:00'),
             $startOfWeek->copy()->endOfWeek()->format('Y-m-d 23:59:59')
-        ])->get();
+        ]);
+        // ->get();
+    }
+    public function taskFromOther(){
+        return $this->allTasks()->where('assignee',Auth::user()->email);
+    }
+    public function taskToOther(){
+        return $this->tasks()->whereNotNull('assignee');
     }
 
     /**

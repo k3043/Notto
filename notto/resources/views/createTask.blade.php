@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <a href='/' class="back"><i class="fa-solid fa-arrow-left"></i></a>
+<button type="button" onclick="window.history.back()" class="back"><i class="fa-solid fa-arrow-left"></i></button>
 <div class="container">
     <h1>Create a new task</h1>
     <form action="/tasks/store" method="POST">

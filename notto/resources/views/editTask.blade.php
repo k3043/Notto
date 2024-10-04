@@ -31,7 +31,7 @@
             </ul>
         </div>
     @endif
-    <a href='/' class="back"><i class="fa-solid fa-arrow-left"></i></a>
+    <button type="button" onclick="window.history.back()" class="back"><i class="fa-solid fa-arrow-left"></i></button>
 <div class="container container1">
     <h1>Edit task</h1>
     <form action="/tasks/edit/{{$task->id}}" method="POST">

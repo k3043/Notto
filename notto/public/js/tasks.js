@@ -4,10 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const type2 = document.querySelector('.type2');
     const type3 = document.querySelector('.type3');
     const type4 = document.querySelector('.type4');
+    const type5 = document.querySelector('.type5');
+    const type6 = document.querySelector('.type6');
     const tbl1 = document.querySelector('.task-tbl1');
     const tbl2 = document.querySelector('.task-tbl2');
     const tbl3 = document.querySelector('.task-tbl3');
     const tbl4 = document.querySelector('.task-tbl4');
+    const tbl5 = document.querySelector('.task-tbl5');
+    const tbl6 = document.querySelector('.task-tbl6');
     const tables = document.querySelectorAll('.task-tbl');
     const options = document.querySelectorAll('.task-type');
     console.log(tables);
@@ -52,6 +56,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         tbl4.style.display = 'table';
         type4.classList.add('selected');
+    };
+    type5.onclick = function(){
+        options.forEach(option => {
+            option.classList.remove('selected');
+        });
+        tables.forEach(table =>{ 
+            table.style.display = 'none';
+        });
+        tbl5.style.display = 'table';
+        type5.classList.add('selected');
+    };
+    type6.onclick = function(){
+        options.forEach(option => {
+            option.classList.remove('selected');
+        });
+        tables.forEach(table =>{ 
+            table.style.display = 'none';
+        });
+        tbl6.style.display = 'table';
+        type6.classList.add('selected');
     };
     const tasks = document.querySelectorAll('.task-line');
     tasks.forEach(task => {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
+use App\Models\Submission;
 use Carbon\Carbon;
 use PHPUnit\Event\Telemetry\System;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +67,10 @@ class TaskController extends Controller
         return redirect('/')->with('success', 'Task added successfully!');
     }
     public function showEditPage($id){
+        
         $task = Task::find($id);
+        if($task->assignee!= null && $task->uid!=Auth::user()->id)
+            return redirect()->back()->with('error', 'permission denied');
         return view('editTask',compact('task'));
     }
     public function update(Request $request, $id)
@@ -75,7 +80,7 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'deadline' => 'required|date',
-            'status' => 'required|string|in:pending,completed', // Ví dụ status có 2 trạng thái
+            'status' => 'required|string|in:pending,completed', 
         ]);
 
         // Tìm task theo ID
@@ -92,18 +97,23 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Task updated successfully');
     }
     public function delete($id){
+
         $task = Task::find($id);
+        if($task->assignee!= null && $task->uid!=Auth::user()->id)
+            return redirect()->back()->with('error', 'permission denied');
         $task->delete();
         return redirect()->back()->with('success', 'Task delete successfully');
     }
 
     public function showList(){
         $user = Auth::user();
-        $tasks = $user->tasks;
+        $tasks = $user->allTasks();
+        $tasksFromOther = $user->taskFromOther();
         $completedTasks = $user->completedTasks();
         $incompletedTasks = $user->incompletedTasks();
         $overdueTasks = $user->overDueTasks();
-        return view('tasks', compact('tasks','completedTasks','incompletedTasks','overdueTasks'));
+        $tasksToOther = $user->taskToOther();
+        return view('tasks', compact('tasks','completedTasks','incompletedTasks','overdueTasks','tasksToOther','tasksFromOther'));
     }
     public function markAsDone($id){
         $task = Task::find($id);
@@ -151,10 +161,32 @@ class TaskController extends Controller
     }
 // task for others
     public function showAssignTaskPage(){
-        return view('/taskForOthers');
+        
+        return view('taskForOthers');
     }
-    public function showSubmitPage(){
-        return view('submit');
+    public function showSubmitPage($id){
+        $task = Task::find($id);
+        $links = $task->submissions;
+        return view('/submit',compact('task','links'));
+    }
+    public function submit($id,Request $request){
+        $task = Task::find($id);
+        $links = $request->input('links');
+        if ($links && is_array($links)) {
+            // Duyệt qua từng link và lưu vào bảng submissions
+            foreach ($links as $link) {
+                $submission = new Submission();
+                $submission->taskid = $task->id; 
+                $submission->link = $link; 
+                $submission->save(); 
+            }
+        }
+    
+        if ($task->markAsDone()) {
+            return redirect('/')->with('success', 'Submitted successfully!');
+        } else {
+            return redirect('/')->back()->with('error', 'Failed to submit');
+        }
     }
     public function assignTask(Request $request){
         $request->validate([
@@ -166,6 +198,10 @@ class TaskController extends Controller
         if ($request->input('email') === Auth::user()->email) {
             return redirect()->back()->withErrors(['email' => 'You cannot assign tasks to yourself!']);
         }
+        $assignee = User::where('email', $request->input('email'))->first();
+        if (!$assignee) {
+            return redirect()->back()->withErrors(['email' => 'The email provided does not exist in our system!']);
+        }
         // Tạo task mới
         $task = new Task();
         $task->title = $request->input('title');
@@ -175,6 +211,7 @@ class TaskController extends Controller
         $task->assignee = $request->input('email'); 
 
         $task->save();
-        return redirect()->back();
+        return redirect()->back()->withSuccess('task has been sent successfully!');
     }
+
 }

@@ -62,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/assignTask', [TaskController::class, 'showAssignTaskPage']);
     Route::post('/assignTask', [TaskController::class, 'assignTask']);
     Route::get('/submit/{id}', [TaskController::class, 'showSubmitPage']);
+    Route::post('/submit/{id}', [TaskController::class, 'submit']);
+
     //đang phát triển
     Route::get('/createAppointment', [TaskController::class, 'showCreateAppointment']);
     Route::get('/createEvent', [TaskController::class, 'showCreateEvent']);

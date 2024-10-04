@@ -27,8 +27,15 @@ class Task extends Model
     }
 
     public function markAsUnfinished(){
+        if ($this->submissions()->exists()) {
+            $this->submissions()->delete();
+        }
         if($this->status == 'completed') $this->status = 'pending';
         if($this->status == 'late') $this->status ='overdue';
         return $this->save();
+    }
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class,'taskid');
     }
 }

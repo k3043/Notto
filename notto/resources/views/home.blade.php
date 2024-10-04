@@ -102,12 +102,24 @@
                             <div class="modal-content">
                                 <span class="close">&times;</span>
                                 <h2 id="task-title">{{$task->title}}</h2>
+                                @if($task->assignee != null)
+                                        <p align='left'>Task from: {{$task->user->name}}</p>
+                                @endif
                                 <p id="task-description">{{$task->description}}</p>
+
+                                
+
                                 <p id="task-deadline">Deadline: {{$task->deadline}}</p>
+                                @if($task->submissions->isNotEmpty()) 
+                                    <h3 class = 'subtitle'>Submission</h3>
+                                    
+                                    @foreach($task->submissions as $link)
+                                        <a href="{{$link->link}}" target="_blank">{{$link->link}}</a>
+                                        <br>
+                                    @endforeach
+                                @endif
                                 <p class="task-status {{$task->status}}">{{$task->status}}</p>
                                 @if($task->isFinished())
-                            
-                                
                                     <form action="/tasks/markAsUnfinished/{{$task->id}}" method="POST" style="display:inline" class='mark-done'>
                                         @csrf
                                         <button type="submit" style="color:#8dce8f;"><i class="fa-solid fa-circle-check"></i></button>
@@ -121,32 +133,43 @@
                                         <button type="submit"  style="color:#8dce8f;"><i class="fa-regular fa-circle-check"></i></button>
                                     </form>
                                 @endif
-                                <div class="btns-group">    
-                                    <a href="/tasks/edit/{{$task->id}}"  id="edit-task"><i class="edit-task fa-solid fa-pen-to-square"></i></a>
-                                    <form action="/tasks/delete/{{$task->id}}" method="post" id="delete-task">@csrf @method('DELETE') <button><i class="delete-task fa-solid fa-trash"></i></button></form>
-                                </div>
+                                @if($task->assignee == null || $task->uid == Auth::user()->id)
+                                    <div class="btns-group">    
+                                        <a href="/tasks/edit/{{$task->id}}" id="edit-task"><i class="edit-task fa-solid fa-pen-to-square"></i></a>
+                                        <form action="/tasks/delete/{{$task->id}}" method="post" id="delete-task">@csrf @method('DELETE') <button><i class="delete-task fa-solid fa-trash"></i></button></form>
+                                    </div>
+                                @else
+
+                                    <br> <br>
+                                @endif
+
                             </div>
                         </div>
-<?php
-    $user = Auth::user();
-    $notifications = $user->notifications; // Lấy tất cả thông báo cho user
-?>                        
+                                                
+                        <?php
+                            $user = Auth::user();
+                            $notifications = $user->notifications; // Lấy tất cả thông báo cho user
+                        ?>                        
 
-@foreach ($notifications as $notification)
-    <div class="alert alert-info">
-        {{ $notification->data['message'] }}
-    </div>
-@endforeach
+                        @foreach ($notifications as $notification)
+                            <div class="alert alert-info">
+                                {{ $notification->data['message'] }}
+                            </div>
+                        @endforeach
 
 
                         @php
                             $deadline = \Carbon\Carbon::parse($task->deadline);
                             $position = ($deadline->hour * 60 + $deadline->minute)*2/3 +19; // Position based on time
                         @endphp
-                        <div class="task {{$task->status}}" style="top: {{ $position }}px">
+                        @if($task->assignee != null && $task->uid == Auth::user()->id)
+
+                        @else
+                        <div class="task {{$task->status}} {{$task->assignee!=null?'others':0}}" style="top: {{ $position }}px">
                        
-                            {{$task->title}}, {{ $deadline->format('H:i') }}
+                            <p style="color:white">{{$task->title}}, {{ $deadline->format('H:i') }}</p>
                         </div>
+                        @endif
                         </div>
                     @endforeach
                 @endif

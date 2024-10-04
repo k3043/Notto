@@ -52,7 +52,6 @@
     <!-- left navbar -->
     <div class="navbar">
         <div class="wrap-btn-options">
-            
         
         <div  class="create-btn"><i class="fa fa-add"></i><p id="createText">Create</p></div>
         <div class="create-options">
