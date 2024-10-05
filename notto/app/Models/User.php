@@ -87,7 +87,7 @@ class User extends Authenticatable
         return $this->allTasks()->where('assignee',Auth::user()->email);
     }
     public function taskToOther(){
-        return $this->tasks()->whereNotNull('assignee');
+        return $this->tasks()->whereNotNull('assignee')->get();
     }
 
     /**
