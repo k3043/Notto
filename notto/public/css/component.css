@@ -332,3 +332,15 @@ p{
     background-color: red; /* Màu đỏ cho dấu chấm */
     border-radius: 50%;
 }
+.delete-noti{
+    font-size: 12px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: rgb(215, 61, 61);
+    font-weight: bold;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}

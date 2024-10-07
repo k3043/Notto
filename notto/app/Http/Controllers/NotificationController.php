@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,5 +20,9 @@ class NotificationController extends Controller
     {
         Auth::user()->unreadNotifications->markAsRead();
         return response()->json(['message' => 'All notifications marked as read']);
+    }
+    public function delete($id){
+        Notification::find($id)->delete();
+        return redirect()->back();
     }
 }

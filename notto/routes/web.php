@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatController;
 use App\Http\Controllers\NotificationController;
+use App\Models\Notification;
+
 //auth
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -69,9 +71,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', [NotificationController::class, 'getUnreadNotifications'])->name('notifications');
     Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAllAsRead']);
 
-    //back
+    //other
     Route::get('/back', [TaskController::class, 'back']);
-
+    Route::get('/deleteNoti/{id}', [NotificationController::class, 'delete']);
     //đang phát triển
     Route::get('/createAppointment', [TaskController::class, 'showCreateAppointment']);
     Route::get('/createEvent', [TaskController::class, 'showCreateEvent']);

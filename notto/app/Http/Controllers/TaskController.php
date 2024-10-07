@@ -23,9 +23,10 @@ class TaskController extends Controller
         Task::where('status', 'pending')
             ->where('deadline', '<', $now)
             ->update(['status' => 'overdue']);
-            $dueTasks = Task::where('deadline', '<=', Carbon::now()->addHours(2))
-            ->where('deadline', '>', Carbon::now())
-            ->where('uid', $request->user()->id)
+        $dueTasks = Task::where('deadline', '<=', Carbon::now()->addHours(2)) // Deadline trong vòng 2 giờ tới
+            ->where('deadline', '>', Carbon::now()) // Deadline lớn hơn thời điểm hiện tại
+            ->where('status', 'pending') // Chỉ lấy những task chưa hoàn thành
+            ->where('uid', $request->user()->id) // Lọc theo user ID
             ->get();
             foreach ($dueTasks as $task) {
                 // Kiểm tra xem thông báo đã được gửi cho task này chưa

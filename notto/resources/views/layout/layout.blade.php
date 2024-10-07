@@ -47,6 +47,7 @@
             @if(Auth::user()->notifications)
             @foreach(Auth::user()->notifications as $noti)
                 <div class="notification-item {{ !$noti->read_at ? 'unread' : '' }}" >
+                <a href="/deleteNoti/{{$noti->id}}" class="delete-noti">Delete</a>
                     <span class="notification-title" style="font-weight: bold;">{{ $noti->data['title'] }}</span>
                     <p>{{$noti->data['message']}}</p>
                     <span class="notification-time" style="color: #d270d2; font-weight:bold">{{ $noti->created_at->diffForHumans() }}</span>
