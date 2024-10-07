@@ -15,9 +15,9 @@ class SendDeadlineReminders extends Command
 
     public function handle()
     {
-        $tasks = Task::where('status', 'pending')
-                     ->where('deadline', '<=', Carbon::now()->addHours(2))
-                     ->get();    
+        $tasks = Task::where('deadline', '<=', Carbon::now()->addHours(2))
+                     ->where('deadline', '>', Carbon::now())
+                     ->get(); 
         foreach ($tasks as $task) {
             Mail::to($task->user->email)->send(new DeadlineReminder($task));
         }

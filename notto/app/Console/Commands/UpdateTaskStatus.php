@@ -19,6 +19,6 @@ class UpdateTaskStatus extends Command
             ->where('deadline', '<', $now)
             ->update(['status' => 'overdue']);
 
-        $this->info('Trạng thái task đã được cập nhật.');
+        $this->info('Status updated !');
     }
 }

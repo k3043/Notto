@@ -15,6 +15,10 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'uid');
     }
+    public function assignee()
+    {
+        return $this->belongsTo(User::class, 'assignee', 'email');
+    }
     public function isFinished() {
         return in_array($this->status, ['completed', 'late']);
     }

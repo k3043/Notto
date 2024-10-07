@@ -27,10 +27,26 @@
             
         </div>
 
-        <div class="noti-btn">
+        <div class="notification-container">
+        <div class="noti-btn" id="notification-bell">
             <i class="fa-solid fa-bell bell-icon"></i>
-            <div class="number-of-noti">2</div>
+            <div class="number-of-noti" id="notification-count">0</div>
         </div>
+        <!-- Danh sách thông báo thả xuống -->
+        <div id="notification-dropdown">
+            <ul id="notification-list" style="list-style: none; padding: 0; margin: 0;">
+            @if(Auth::user()->notifications)
+            @foreach(Auth::user()->notifications as $noti)
+                <div class="notification-item {{ !$noti->read_at ? 'unread' : '' }}" >
+                    <span class="notification-title" style="font-weight: bold;">{{ $noti->data['title'] }}</span>
+                    <p>{{$noti->data['message']}}</p>
+                    <span class="notification-time" style="color: #d270d2; font-weight:bold">{{ $noti->created_atdiffForHumans() }}</span>
+            </div>
+            @endforeach
+            @endif
+            </ul>
+        </div>
+    </div>
         <div class="wrap-user">
             <div class="avatar"> <img src="{{Auth::user()->avatar?Auth::user()->avatar:'/images/defaultava.jpg'}}" alt=""></div>
             <form action="/logout" method = 'post'>@csrf <button><i class=" logout-btn fa-solid fa-right-from-bracket"></i></button></form>  
@@ -71,7 +87,70 @@
     </div>
 </div>
 </div>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const bell = document.getElementById('notification-bell');
+    const countSpan = document.getElementById('notification-count');
+    const dropdown = document.getElementById('notification-dropdown');
+    const notificationList = document.getElementById('notification-list');
+    let dropdownVisible = false; // Biến trạng thái cho dropdown
 
+    function loadUnreadNotifications() {
+        fetch('/notifications')
+            .then(response => response.json())
+            .then(data => {
+                const unreadCount = data.length;
+                countSpan.style.display = unreadCount > 0 ? 'block' : 'none';
+                countSpan.textContent = unreadCount;
+
+                // notificationList.innerHTML = '';
+                // data.forEach(notification => {
+                //     const li = document.createElement('li');
+                //     li.style.padding = '10px';
+                //     li.style.borderBottom = '1px solid #ccc';
+                //     li.innerHTML = `<strong>${notification.data.title}</strong>: ${notification.data.message}`;
+                //     notificationList.appendChild(li);
+                // });
+            });
+    }
+
+    bell.addEventListener('click', () => {
+        dropdownVisible = !dropdownVisible; // Chuyển đổi trạng thái
+        dropdown.style.display = dropdownVisible ? 'block' : 'none'; // Hiển thị hoặc ẩn dropdown
+
+        if (!dropdownVisible) {
+            fetch('/notifications/mark-as-read', { method: 'POST' })
+                .then(() => loadUnreadNotifications());
+        }
+    });
+  
+    // Ẩn dropdown khi nhấp ra ngoài
+    document.addEventListener('click', (event) => {
+        if (!bell.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+            loadUnreadNotifications();
+            dropdownVisible = false; // Đặt trạng thái về false khi ẩn
+        }
+    });
+
+    loadUnreadNotifications();
+});
+
+</script>
+<script>
+    // Đặt CSRF token vào các yêu cầu Fetch
+    window.onload = function () {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        window.fetch = (function (originalFetch) {
+            return function (url, options = {}) {
+                options.headers = options.headers || {};
+                options.headers['X-CSRF-TOKEN'] = token;
+                return originalFetch(url, options);
+            };
+        })(window.fetch);
+    };
+</script>
 <script src="/js/home.js"></script>
 <script src="/js/component.js"></script>
 </body>

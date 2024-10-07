@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatController;
+use App\Http\Controllers\NotificationController;
 //auth
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -63,6 +64,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/assignTask', [TaskController::class, 'assignTask']);
     Route::get('/submit/{id}', [TaskController::class, 'showSubmitPage']);
     Route::post('/submit/{id}', [TaskController::class, 'submit']);
+
+    //noti
+    Route::get('/notifications', [NotificationController::class, 'getUnreadNotifications'])->name('notifications');
+    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAllAsRead']);
+
+    //back
+    Route::get('/back', [TaskController::class, 'back']);
 
     //đang phát triển
     Route::get('/createAppointment', [TaskController::class, 'showCreateAppointment']);

@@ -1,11 +1,11 @@
 @extends('layout.layout')
 @section('content')
-@foreach (auth()->user()->notifications as $notification)
+<!-- @foreach (auth()->user()->notifications as $notification)
     <div class="notification">
         {{ $notification->data['message'] }} 
         <a href="{{ url('/tasks/' . $notification->data['task_id']) }}">View Task</a>
     </div>
-@endforeach
+@endforeach -->
 
 @if (session('success'))
         <div class="alert autodis3s success bottom-right shadow0">
@@ -151,11 +151,11 @@
                             $notifications = $user->notifications; // Lấy tất cả thông báo cho user
                         ?>                        
 
-                        @foreach ($notifications as $notification)
+                        <!-- @foreach ($notifications as $notification)
                             <div class="alert alert-info">
                                 {{ $notification->data['message'] }}
                             </div>
-                        @endforeach
+                        @endforeach -->
 
 
                         @php

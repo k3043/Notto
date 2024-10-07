@@ -10,7 +10,8 @@ use Carbon\Carbon;
 use PHPUnit\Event\Telemetry\System;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use App\Notifications\TaskDeadlineReminder;
+use App\Models\Notification; 
 use function Psy\debug;
 
 class TaskController extends Controller
@@ -22,7 +23,31 @@ class TaskController extends Controller
         Task::where('status', 'pending')
             ->where('deadline', '<', $now)
             ->update(['status' => 'overdue']);
-            
+            $dueTasks = Task::where('deadline', '<=', Carbon::now()->addHours(2))
+            ->where('deadline', '>', Carbon::now())
+            ->where('uid', $request->user()->id)
+            ->get();
+            foreach ($dueTasks as $task) {
+                // Kiểm tra xem thông báo đã được gửi cho task này chưa
+                $notificationExists = Notification::where('notifiable_id', $request->user()->id)
+                                                  ->where('data', 'LIKE', '%"task_id":'.$task->id.'%')
+                                                  ->exists();
+    
+                if (!$notificationExists) {
+                    // Tạo thông báo và lưu vào bảng notifications
+                    Notification::create([
+                        'type' => 'App\Notifications\TaskDeadlineReminder',
+                        'notifiable_type' => 'App\Models\User',
+                        'notifiable_id' => $request->user()->id,
+                        'data' => json_encode([
+                            'title' => 'Task Deadline Reminder',
+                            'message' => "Task '{$task->title}' is due in less than 2 hours!",
+                            'task_id' => $task->id,
+                            'due_date' => $task->deadline, // Nếu deadline là datetime
+                        ]),
+                    ]);
+                }
+            }
         $date = $request->input('date', now()); 
         $currentDate = new Carbon($date);
         $startOfWeek = $currentDate->startOfWeek();
@@ -93,7 +118,6 @@ class TaskController extends Controller
         $task->status = $request->input('status');
 
         $task->save();
-
         return redirect()->back()->with('success', 'Task updated successfully');
     }
     public function delete($id){
@@ -138,17 +162,17 @@ class TaskController extends Controller
 
     //đang phát triển
     public function showCreateAppointment(){
-        return redirect()->back()->with('success', 'Tính năng đang phát triển');
+        return redirect()->back()->with('success', 'Feature under development');
     }
     public function showCreateEvent(){
-        return redirect()->back()->with('success', 'Tính năng đang phát triển');
+        return redirect()->back()->with('success', 'Feature under development');
     }
 
     public function search(Request $request){
         $user = Auth::user();
         $keyword = $request->input('keyword');
         if (!$keyword) {
-            $result = $user->tasks;
+            $result = $user->allTasks();
         } else {
             $result = Task::where('uid', $user->id) 
             ->where(function($query) use ($keyword) {
@@ -212,6 +236,9 @@ class TaskController extends Controller
 
         $task->save();
         return redirect()->back()->withSuccess('task has been sent successfully!');
+    }
+    public function back(){
+        return redirect()->back();
     }
 
 }

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Task;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -26,11 +27,16 @@ class User extends Authenticatable
         'provider_id',
         'avatar'
     ];
+    
     // lấy tất cả task
     public function tasks()
     {
         return $this->hasMany(Task::class, 'uid');
         //  ->orWhere('assignee', Auth::user()->email);
+    }
+    public function assignedTasks()
+    {
+        return $this->hasMany(Task::class, 'assignee', 'email');
     }
     public function allTasks()
         {

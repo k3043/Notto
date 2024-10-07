@@ -3,20 +3,19 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class TaskDeadlineReminder extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $task;
+    public $task;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * Tạo constructor để truyền thông tin task vào thông báo.
      */
     public function __construct($task)
     {
@@ -24,44 +23,58 @@ class TaskDeadlineReminder extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
+     * Định nghĩa kênh mà thông báo sẽ được gửi.
      */
     public function via($notifiable)
     {
-        // Channels to send notification: email and database.
-        return ['mail', 'database'];
+        return ['database', 'broadcast'];
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->subject('Task Deadline Reminder')
-                    ->line('Your task "' . $this->task->title . '" is due in less than 2 hours.')
-                    ->action('View Task', url('/tasks/' . $this->task->id))
-                    ->line('Please make sure to complete it on time!');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
+     * Lưu thông báo vào cơ sở dữ liệu.
      */
     public function toArray($notifiable)
     {
         return [
+            'title' => 'Task Deadline Reminder',
+            'message' => "Task '{$this->task->title}' is due in less than 2 hours!",
             'task_id' => $this->task->id,
-            'title' => $this->task->title,
-            'message' => 'Your task "' . $this->task->title . '" is due in less than 2 hours.'
+            'due_date' => $this->task->deadline->format('Y-m-d H:i:s'),
         ];
+    }
+
+    public function toDatabase($notifiable)
+    {
+        die($this->task->title);
+        return [
+            'title' => 'Task Deadline Reminder',
+            'message' => "Task '{$this->task->title}' is due in less than 2 hours!",
+            'task_id' => $this->task->id,
+            'due_date' => $this->task->deadline->format('Y-m-d H:i:s'),
+        ];
+    }
+
+    /**
+     * Trả về thông báo dưới dạng một broadcast message.
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'title' => 'Task Deadline Reminder',
+            'message' => "Task '{$this->task->title}' is due in less than 2 hours!",
+            'task_id' => $this->task->id,
+            'due_date' => $this->task->deadline->format('Y-m-d H:i:s'),
+        ]);
+    }
+
+    /**
+     * Cấu hình email nếu cần gửi email (tùy chọn).
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->line("Your task '{$this->task->title}' is due in less than 2 hours!")
+                    ->action('View Task', url('/tasks/'.$this->task->id))
+                    ->line('Please make sure to complete it on time!');
     }
 }
