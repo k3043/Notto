@@ -10,16 +10,16 @@ class DeadlineReminder extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $task;
+    public $tasks;
 
-    public function __construct($task)
+    public function __construct($tasks)
     {
-        $this->task = $task;
+        $this->tasks = $tasks;
     }
 
     public function build()
     {
-        return $this->subject('Reminder: Task Deadline Approaching')
+        return $this->subject('Reminder: You have tasks due today')
                     ->view('emails.deadline_reminder');
     }
 }

@@ -38,4 +38,5 @@ class SendNotifications extends Command
 
         return 0;
     }
+    }
 }
