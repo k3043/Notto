@@ -102,12 +102,12 @@
                             <div class="modal-content">
                                 <span class="close">&times;</span>
                                 <h2 id="task-title">{{$task->title}}</h2>
-                                @if($task->assignee != null)
+                                @if($task->assignee != null && $task->uid == Auth::user()->id)
+                                <p align='left'>Task to: {{$task->assignee}}</p>
+                                @elseif($task->assignee != null)
                                         <p align='left'>Task from: {{$task->user->name}}</p>
                                 @endif
                                 <p id="task-description">{{$task->description}}</p>
-
-                                
 
                                 <p id="task-deadline">Deadline: {{$task->deadline}}</p>
                                 @if($task->submissions->isNotEmpty()) 
@@ -150,26 +150,16 @@
                             $user = Auth::user();
                             $notifications = $user->notifications; // Lấy tất cả thông báo cho user
                         ?>                        
-
-                        <!-- @foreach ($notifications as $notification)
-                            <div class="alert alert-info">
-                                {{ $notification->data['message'] }}
-                            </div>
-                        @endforeach -->
-
-
                         @php
                             $deadline = \Carbon\Carbon::parse($task->deadline);
                             $position = ($deadline->hour * 60 + $deadline->minute)*2/3 +19; // Position based on time
                         @endphp
-                        @if($task->assignee != null && $task->uid == Auth::user()->id)
-
-                        @else
+                    
                         <div class="task {{$task->status}} {{$task->assignee!=null?'others':0}}" style="top: {{ $position }}px">
                        
                             <p style="color:white">{{$task->title}}, {{ $deadline->format('H:i') }}</p>
                         </div>
-                        @endif
+                        
                         </div>
                     @endforeach
                 @endif
