@@ -30,22 +30,23 @@
 
     <!-- Biểu đồ cột -->
     <div class="chart-container chart-container2">
-        <h3 align = 'center'>Task status</h3>
+        <h3 align = 'center'>Task status category</h3>
         <canvas id="barChart"></canvas>
     </div>
-        <div id="data" total = {{$total}} lated = {{$lated}} completed = {{$completed}} overdue = {{$overdue}} ontime = {{$ontime}} ></div>
+        <div id="data" total = {{$total}} lated = {{$lated}} completed = {{$completed}} overdue = {{$overdue}} ontime = {{$ontime}} pending = {{$pending}} ></div>
     <script>
         // Dữ liệu giả lập cho biểu đồ
         const data = document.getElementById('data');
         
         const totalTasks = data.getAttribute('total');// Tổng số task
         const completedTasks = data.getAttribute('completed'); // Task đã hoàn thành
+        const pendingTasks = data.getAttribute('pending');
         const uncompletedTasks = totalTasks - completedTasks; // Task chưa hoàn thành
 
         const completedOnTime = data.getAttribute('ontime'); // Task hoàn thành đúng hạn
         const completedLate = data.getAttribute('lated'); // Task hoàn thành trễ
         const overdueTasks = data.getAttribute('overdue'); // Task đã quá hạn
-        const notStartedTasks = totalTasks - completedTasks; // Task chưa hoàn thành
+        const notStartedTasks = pendingTasks; // Task chưa hoàn thành
 
         // Biểu đồ tròn - Tình trạng công việc
         const pieCtx = document.getElementById('pieChart').getContext('2d');
@@ -83,12 +84,12 @@
         new Chart(barCtx, {
             type: 'bar',
             data: {
-                labels: ['Completed on time', 'Lated', 'Incompleted', 'Overdue'],
+                labels: ['Completed on time', 'Lated', 'Pending', 'Overdue'],
                 datasets: [{
                     label: 'Number of tasks',
                     data: [completedOnTime, completedLate, notStartedTasks, overdueTasks],
-                    backgroundColor: ['#4CAF50', '#FFC107', '#FF6384', '#FF5722'],
-                    borderColor: ['#4CAF50', '#FFC107', '#FF6384', '#FF5722'],
+                    backgroundColor: ['#8dce8f', '#e4a81b', '#cad2d6', '#dd4141'],
+                    borderColor: ['#8dce8f', '#e4a81b', '#cad2d6', '#dd4141'],
                     borderWidth: 1
                 }]
             },
@@ -126,4 +127,5 @@
         });
     </script>
 </wrap-charts>
+<div class="note" style="margin-left:40%; padding-bottom:100px"><span style="font-size: 18px; font-weight: bold; color:orange">NOTE</span>&bull; Incompleted = Pending + Overdue <br>&bull; Completed = Lated + Completed on time</div>
 @endsection

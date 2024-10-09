@@ -44,6 +44,13 @@ class User extends Authenticatable
                     ->orWhere('assignee', Auth::user()->email)
                     ->get();
         }
+    public function pendingTasks()
+    {
+            $tasks =  $this->tasks()
+            ->whereIn('status', ['pending'])
+            ->get();
+        return $tasks;
+    }
     public function incompletedTasks()
     { 
         $tasks =  $this->tasks()

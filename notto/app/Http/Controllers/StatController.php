@@ -16,6 +16,7 @@ class StatController extends Controller
         $overdue = count($overdueTasks);
         $lated = count($user->latedTasks());
         $ontime = count($user->completedOntimeTasks());
-        return view('statistics',compact('total','completed','overdue','lated','ontime'));
+        $pending = count($user->pendingTasks());
+        return view('statistics',compact('total','completed','overdue','lated','ontime','pending'));
     }
 }
