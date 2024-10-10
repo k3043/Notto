@@ -177,8 +177,7 @@ class TaskController extends Controller
         } else {
             $result = Task::where('uid', $user->id) 
             ->where(function($query) use ($keyword) {
-                $query->where('title', 'LIKE', "%{$keyword}%")
-                      ->orWhere('description', 'LIKE', "%{$keyword}%");
+                $query->where('title', 'LIKE', "%{$keyword}%");
             })
             ->get();
         }

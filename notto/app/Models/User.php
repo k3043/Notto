@@ -46,45 +46,45 @@ class User extends Authenticatable
         }
     public function pendingTasks()
     {
-            $tasks =  $this->tasks()
-            ->whereIn('status', ['pending'])
-            ->get();
+            $tasks =  $this->allTasks()
+            ->whereIn('status', ['pending']);
+            // ->get();
         return $tasks;
     }
     public function incompletedTasks()
     { 
-        $tasks =  $this->tasks()
-                    ->whereIn('status', ['pending', 'overdue'])
-                    ->get();
+        $tasks =  $this->allTasks()
+                    ->whereIn('status', ['pending', 'overdue']);
+                    // ->get();
         return $tasks;
     }
 
     // Tasks đã hoàn thành (trạng thái completed)
     public function completedTasks()
     {
-        return $this->tasks()
-                    ->whereIn('status', ['completed','late'])
-                    ->get();
+        return $this->allTasks()
+                    ->whereIn('status', ['completed','late']);
+                    // ->get();
     }
     public function completedOntimeTasks()
     {
-        return $this->tasks()
-                    ->whereIn('status', ['completed'])
-                    ->get();
+        return $this->allTasks()
+                    ->whereIn('status', ['completed']);
+                    // ->get();
     }
     public function latedTasks()
     {
-        return $this->tasks()
-                    ->whereIn('status', ['late'])
-                    ->get();
+        return $this->allTasks()
+                    ->whereIn('status', ['late']);
+                    // ->get();
     }
 
     // Tasks quá hạn
     public function overDueTasks()
     {
-        return $this->tasks()
-                    ->whereIn('status', ['overdue'])
-                    ->get();
+        return $this->allTasks()
+                    ->whereIn('status', ['overdue']);
+                    // ->get();
     }
     // lấy task trong tuần
     public function tasksInWeek($startOfWeek)

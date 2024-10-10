@@ -11,7 +11,7 @@ class StatController extends Controller
         $user = Auth::user();
         $completedTasks = $user->completedTasks();
         $overdueTasks = $user->overDueTasks();
-        $total = count($user->tasks);
+        $total = count($user->allTasks());
         $completed = count($completedTasks);
         $overdue = count($overdueTasks);
         $lated = count($user->latedTasks());

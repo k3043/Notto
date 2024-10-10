@@ -210,6 +210,7 @@
         <th style="width:50%;border-right: 1px solid grey;">Task</th>
         <th>Due date</th>
         <th>Status</th>
+        <th>Task from</th>
         <th>Action</th>
     </tr>
     @foreach($tasksFromOther as $task)
@@ -217,6 +218,7 @@
         <td class="td-taskname">{{ $task->title }}</td>
         <td>{{ $task->deadline?$task->deadline :"no due date" }}</td>
         <td>{{ $task->status }}</td>
+        <td>{{ $task->user->email }}</td>
         <td>
             
            
@@ -254,6 +256,7 @@
         <th style="width:50%;border-right: 1px solid grey;">Task</th>
         <th>Due date</th>
         <th>Status</th>
+        <th>Assignee</th>
         <th>Action</th>
     </tr>
     @foreach($tasksToOther as $task)
@@ -261,6 +264,7 @@
         <td class="td-taskname">{{ $task->title }}</td>
         <td>{{ $task->deadline?$task->deadline :"no due date" }}</td>
         <td>{{ $task->status }}</td>
+        <td>{{ $task->assignee }}</td>
         <td>
             
            

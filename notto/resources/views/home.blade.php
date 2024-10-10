@@ -105,7 +105,7 @@
                                 @if($task->assignee != null && $task->uid == Auth::user()->id)
                                 <p align='left'>Task to: {{$task->assignee}}</p>
                                 @elseif($task->assignee != null)
-                                        <p align='left'>Task from: {{$task->user->name}}</p>
+                                        <p align='left'>Task from: {{$task->user->email}}</p>
                                 @endif
                                 <p id="task-description">{{$task->description}}</p>
 
